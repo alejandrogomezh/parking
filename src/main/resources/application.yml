@@ -3,7 +3,7 @@ spring:
     active: dev
   datasource:
     dataSourceClassName: org.h2.jdbcx.JdbcDataSource
-    url: jdbc:h2:mem:myDb;DB_CLOSE_DELAY=-1
+    url: jdbc:h2:tcp://localhost/~/parking;DB_CLOSE_DELAY=-1
     databaseName: parking
     serverName: 
     username: alejandro.gomez
@@ -20,3 +20,7 @@ spring:
     properties:
       hibernate.cache.use_query_cache: false
       hibernate.generate_statistics: true
+  data:
+    jpa:
+      repositories:
+        enabled: true

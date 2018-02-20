@@ -1,6 +1,6 @@
 package testdatabuilder;
 
-import co.ceiba.parking.dominio.objetos.Carro;
+import co.ceiba.parking.domain.objects.Carro;
 
 public class CarroTestDataBuilder {
 	private static final String PLACA = "OPQ123";

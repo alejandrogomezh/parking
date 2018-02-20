@@ -1,6 +1,6 @@
 package testdatabuilder;
 
-import co.ceiba.parking.dominio.objetos.Moto;
+import co.ceiba.parking.domain.objects.Moto;
 
 public class MotoTestDataBuilder {
 	private static final String PLACA = "ASK65F";

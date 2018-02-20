@@ -9,12 +9,12 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
-import co.ceiba.parking.dominio.Condiciones;
-import co.ceiba.parking.dominio.Tiempos;
-import co.ceiba.parking.dominio.objetos.Carro;
-import co.ceiba.parking.persistencia.entidad.Registro;
+import co.ceiba.parking.domain.Conditions;
+import co.ceiba.parking.domain.Time;
+import co.ceiba.parking.domain.objects.Carro;
+import co.ceiba.parking.domain.objects.Register;
 import testdatabuilder.CarroTestDataBuilder;
-import testdatabuilder.RegistroTestDataBuilder;
+import testdatabuilder.RegisterTestDataBuilder;
 import testutilidades.FechaTest;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
@@ -25,17 +25,17 @@ public class TiemposTest {
 		Date ingreso = FechaTest.crearFechaConHora(24, Calendar.MAY, 2018, 12, 0);
 		Date salida = FechaTest.crearFechaConHora(25, Calendar.MAY, 2018, 15, 0);
 		Carro carro = new CarroTestDataBuilder().build();
-		Condiciones condicion = Condiciones.get(carro);
-		Registro registro = new RegistroTestDataBuilder()
+		Conditions condicion = Conditions.get(carro);
+		Register register = new RegisterTestDataBuilder()
 				.conIngreso(ingreso)
 				.conSalida(salida)
 				.build();
-		Tiempos tiempos = new Tiempos(condicion, registro);
+		Time time = new Time(condicion, register);
 		// act
-		tiempos.calcular();
+		time.calculate();
 		// assert
-		assertEquals(1, tiempos.getDias());
-		assertEquals(3, tiempos.getHoras());
+		assertEquals(1, time.getDias());
+		assertEquals(3, time.getHoras());
 	}
 	
 	@Test public void unDiaDesde10Horas() {
@@ -43,17 +43,17 @@ public class TiemposTest {
 		Date ingreso = FechaTest.crearFechaConHora(24, Calendar.MAY, 2018, 7, 0);
 		Date salida = FechaTest.crearFechaConHora(24, Calendar.MAY, 2018, 17, 0);
 		Carro carro = new CarroTestDataBuilder().build();
-		Condiciones condicion = Condiciones.get(carro);
-		Registro registro = new RegistroTestDataBuilder()
+		Conditions condicion = Conditions.get(carro);
+		Register register = new RegisterTestDataBuilder()
 				.conIngreso(ingreso)
 				.conSalida(salida)
 				.build();
-		Tiempos tiempos = new Tiempos(condicion, registro);
+		Time time = new Time(condicion, register);
 		// act
-		tiempos.calcular();
+		time.calculate();
 		// assert
-		assertEquals(1, tiempos.getDias());
-		assertEquals(0, tiempos.getHoras());
+		assertEquals(1, time.getDias());
+		assertEquals(0, time.getHoras());
 	}
 
 	@Test public void unDiaDesde9Horas() {
@@ -61,17 +61,17 @@ public class TiemposTest {
 		Date ingreso = FechaTest.crearFechaConHora(24, Calendar.MAY, 2018, 7, 0);
 		Date salida = FechaTest.crearFechaConHora(24, Calendar.MAY, 2018, 16, 0);
 		Carro carro = new CarroTestDataBuilder().build();
-		Condiciones condicion = Condiciones.get(carro);
-		Registro registro = new RegistroTestDataBuilder()
+		Conditions condicion = Conditions.get(carro);
+		Register register = new RegisterTestDataBuilder()
 				.conIngreso(ingreso)
 				.conSalida(salida)
 				.build();
-		Tiempos tiempos = new Tiempos(condicion, registro);
+		Time time = new Time(condicion, register);
 		// act
-		tiempos.calcular();
+		time.calculate();
 		// assert
-		assertEquals(1, tiempos.getDias());
-		assertEquals(0, tiempos.getHoras());
+		assertEquals(1, time.getDias());
+		assertEquals(0, time.getHoras());
 	}
 
 	@Test public void ochoHoras() {
@@ -79,17 +79,17 @@ public class TiemposTest {
 		Date ingreso = FechaTest.crearFechaConHora(24, Calendar.MAY, 2018, 7, 0);
 		Date salida = FechaTest.crearFechaConHora(24, Calendar.MAY, 2018, 15, 0);
 		Carro carro = new CarroTestDataBuilder().build();
-		Condiciones condicion = Condiciones.get(carro);
-		Registro registro = new RegistroTestDataBuilder()
+		Conditions condicion = Conditions.get(carro);
+		Register register = new RegisterTestDataBuilder()
 				.conIngreso(ingreso)
 				.conSalida(salida)
 				.build();
-		Tiempos tiempos = new Tiempos(condicion, registro);
+		Time time = new Time(condicion, register);
 		// act
-		tiempos.calcular();
+		time.calculate();
 		// assert
-		assertEquals(0, tiempos.getDias());
-		assertEquals(8, tiempos.getHoras());
+		assertEquals(0, time.getDias());
+		assertEquals(8, time.getHoras());
 	}
 
 }

@@ -5,21 +5,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import co.ceiba.parking.dominio.Vigilante;
-import co.ceiba.parking.dominio.repositorio.VehiculoRepositorio;
-import co.ceiba.parking.persistencia.administrador.AdministradorPersistencia;
-import co.ceiba.parking.persistencia.entidad.Vehiculo;
+import co.ceiba.parking.domain.Vigilant;
+import co.ceiba.parking.domain.objects.Vehicle;
+import co.ceiba.parking.service.persistent.ServicesPersistent;
+import co.ceiba.parking.service.persistent.ServicesPersistentImpl;
+import co.ceiba.parking.service.persistent.VehicleService;
 
 @RestController
 public class ParkingController {
   private final AtomicLong counter = new AtomicLong();
   
-  AdministradorPersistencia administradorPersistencia;
-  Vigilante vigilante;
+  ServicesPersistent servicesPersistent;
+  Vigilant vigilant;
   
   public ParkingController() {
-  	administradorPersistencia = new AdministradorPersistencia();
-  	vigilante = new Vigilante(administradorPersistencia);
+  	servicesPersistent = new ServicesPersistentImpl();
+  	vigilant = new Vigilant(servicesPersistent);
   }
 
   @RequestMapping("/ingresar")
@@ -28,15 +29,16 @@ public class ParkingController {
   		@RequestParam(value="placa", defaultValue="") String placa,
   		@RequestParam(value="cilindraje", defaultValue="0") int cilindraje) {
   	
-  	VehiculoRepositorio vehiculoRepositorio = administradorPersistencia.getVehiculoRepositorio();
-  	Vehiculo vehiculo = vehiculoRepositorio.obtenerPorTipoYPlaca(tipo, placa);
-  	if(vehiculo == null) {
-  		vehiculo = new Vehiculo();
-  		vehiculo.setTipo(tipo);
-  		vehiculo.setTipo(placa);
-  		
+  	VehicleService vehicleService = servicesPersistent.getVehicleService();
+  	Vehicle vehicle = vehicleService.findByTipoPlaca(tipo, placa);
+  	if(vehicle == null) {
+  		vehicle = new Vehicle(
+  				tipo,
+  				placa,
+  				cilindraje
+  				).persist(vehicleService);
   	}
-  	return vigilante.ingreso(vehiculo);
+  	return vigilant.ingreso(vehicle);
   }
 
 }

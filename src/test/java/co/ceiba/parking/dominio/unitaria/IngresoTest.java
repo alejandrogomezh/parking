@@ -4,21 +4,23 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
-import co.ceiba.parking.dominio.Condiciones;
-import co.ceiba.parking.dominio.Ingreso;
-import co.ceiba.parking.dominio.objetos.Carro;
-import co.ceiba.parking.dominio.objetos.Moto;
-import co.ceiba.parking.dominio.repositorio.RegistroIngresoRepositorio;
-import co.ceiba.parking.dominio.repositorio.RepositorioAdministrador;
-import co.ceiba.parking.mensajes.Mensajes;
-import co.ceiba.parking.persistencia.entidad.RegistroIngreso;
+import co.ceiba.parking.domain.Conditions;
+import co.ceiba.parking.domain.EnterVehicle;
+import co.ceiba.parking.domain.objects.Carro;
+import co.ceiba.parking.domain.objects.Moto;
+import co.ceiba.parking.domain.objects.RegistryAdmitted;
+import co.ceiba.parking.messages.Messages;
+import co.ceiba.parking.service.persistent.RegistryAdmittedService;
+import co.ceiba.parking.service.persistent.ServicesPersistent;
 import testdatabuilder.CarroTestDataBuilder;
 import testdatabuilder.MotoTestDataBuilder;
 import testutilidades.FechaTest;
@@ -30,164 +32,163 @@ public class IngresoTest {
 		// arrange
 		Date fecha = FechaTest.crearFecha(18, Calendar.FEBRUARY, 2018); // Domingo 18/febrero/2018
 		Moto moto = new MotoTestDataBuilder().conPlaca("ABC21G").build();
-		Condiciones motoCondiciones = Condiciones.get(moto);
+		Conditions motoCondiciones = Conditions.get(moto);
 
-		RepositorioAdministrador repositorioAdministrador = mock(RepositorioAdministrador.class);
-		RegistroIngresoRepositorio registroIngresoRepositorio = mock(RegistroIngresoRepositorio.class);
+		ServicesPersistent servicesPersistent = mock(ServicesPersistent.class);
+		RegistryAdmittedService registryAdmittedService = mock(RegistryAdmittedService.class);
 
-		when(repositorioAdministrador.getIngresadosRepositorio()).thenReturn(registroIngresoRepositorio);
+		when(servicesPersistent.getRegistryAdmittedService()).thenReturn(registryAdmittedService);
 
-		when(registroIngresoRepositorio.obtenerCantidadPorTipoVehiculo(moto)).thenReturn(motoCondiciones.getCupo()-1);
-		when(registroIngresoRepositorio.obtenerPorVehiculo(moto)).thenReturn(null);
-
-		Ingreso ingreso = new Ingreso(repositorioAdministrador);
+		when(registryAdmittedService.countByTypeVehicle(moto.getTipo())).thenReturn(motoCondiciones.getCupo()-1);
+		when(registryAdmittedService.findByVehicle(moto)).thenReturn(new ArrayList<RegistryAdmitted>());
+		EnterVehicle enterVehicle = new EnterVehicle(servicesPersistent);
 
 		// act
-		ingreso.ingresar(fecha, moto);
+		enterVehicle.enter(fecha, moto);
 
 		// assert
-		assertEquals(Mensajes.INGRESO_NO_AUTORIZADO, ingreso.getMsg());
+		assertEquals(Messages.INGRESO_NO_AUTORIZADO, enterVehicle.getMsg());
 	}
 
 	@Test public void noIngresarPlacaADiaSabado() {
 		// arrange
 		Date fecha = FechaTest.crearFecha(17, Calendar.FEBRUARY, 2018); // Sabado 18/febrero/2018
 		Moto moto = new MotoTestDataBuilder().conPlaca("ABC21G").build();
-		Condiciones motoCondiciones = Condiciones.get(moto);
+		Conditions motoCondiciones = Conditions.get(moto);
 
-		RepositorioAdministrador repositorioAdministrador = mock(RepositorioAdministrador.class);
-		RegistroIngresoRepositorio registroIngresoRepositorio = mock(RegistroIngresoRepositorio.class);
+		ServicesPersistent servicesPersistent = mock(ServicesPersistent.class);
+		RegistryAdmittedService registryAdmittedService = mock(RegistryAdmittedService.class);
 
-		when(repositorioAdministrador.getIngresadosRepositorio()).thenReturn(registroIngresoRepositorio);
+		when(servicesPersistent.getRegistryAdmittedService()).thenReturn(registryAdmittedService);
 
-		when(registroIngresoRepositorio.obtenerCantidadPorTipoVehiculo(moto)).thenReturn(motoCondiciones.getCupo()-1);
-		when(registroIngresoRepositorio.obtenerPorVehiculo(moto)).thenReturn(null);
+		when(registryAdmittedService.countByTypeVehicle(moto.getTipo())).thenReturn(motoCondiciones.getCupo()-1);
+		when(registryAdmittedService.findByVehicle(moto)).thenReturn(new ArrayList<RegistryAdmitted>());
 
-		Ingreso ingreso = new Ingreso(repositorioAdministrador);
+		EnterVehicle enterVehicle = new EnterVehicle(servicesPersistent);
 
 		// act
-		ingreso.ingresar(fecha, moto);
+		enterVehicle.enter(fecha, moto);
 
 		// assert
-		assertEquals(Mensajes.INGRESO_NO_AUTORIZADO, ingreso.getMsg());
+		assertEquals(Messages.INGRESO_NO_AUTORIZADO, enterVehicle.getMsg());
 	}
 
 	@Test public void ingresarPlacaNoADiaDomingo() {
 		// arrange
 		Date fecha = FechaTest.crearFecha(18, Calendar.FEBRUARY, 2018); // Domingo 18/febrero/2018
 		Moto moto = new MotoTestDataBuilder().conPlaca("CBC21G").build();
-		Condiciones motoCondiciones = Condiciones.get(moto);
+		Conditions motoCondiciones = Conditions.get(moto);
 
-		RepositorioAdministrador repositorioAdministrador = mock(RepositorioAdministrador.class);
-		RegistroIngresoRepositorio registroIngresoRepositorio = mock(RegistroIngresoRepositorio.class);
+		ServicesPersistent servicesPersistent = mock(ServicesPersistent.class);
+		RegistryAdmittedService registryAdmittedService = mock(RegistryAdmittedService.class);
 
-		when(repositorioAdministrador.getIngresadosRepositorio()).thenReturn(registroIngresoRepositorio);
+		when(servicesPersistent.getRegistryAdmittedService()).thenReturn(registryAdmittedService);
 
-		when(registroIngresoRepositorio.obtenerCantidadPorTipoVehiculo(moto)).thenReturn(motoCondiciones.getCupo()-1);
-		when(registroIngresoRepositorio.obtenerPorVehiculo(moto)).thenReturn(null);
+		when(registryAdmittedService.countByTypeVehicle(moto.getTipo())).thenReturn(motoCondiciones.getCupo()-1);
+		when(registryAdmittedService.findByVehicle(moto)).thenReturn(new ArrayList<RegistryAdmitted>());
 
-		Ingreso ingreso = new Ingreso(repositorioAdministrador);
+		EnterVehicle enterVehicle = new EnterVehicle(servicesPersistent);
 
 		// act
-		ingreso.ingresar(fecha, moto);
+		enterVehicle.enter(fecha, moto);
 
 		// assert
-		assertEquals(Mensajes.INGRESO, ingreso.getMsg());
+		assertEquals(Messages.INGRESO_SATISFACTORIO, enterVehicle.getMsg());
 	}
 
 	@Test public void ingresarPlacaADiaLunes() {
 		// arrange
 		Date fecha = FechaTest.crearFecha(19, Calendar.FEBRUARY, 2018); // Lunes 19/febrero/2018
 		Moto moto = new MotoTestDataBuilder().conPlaca("ABC21G").build();
-		Condiciones motoCondiciones = Condiciones.get(moto);
+		Conditions motoCondiciones = Conditions.get(moto);
 
-		RepositorioAdministrador repositorioAdministrador = mock(RepositorioAdministrador.class);
-		RegistroIngresoRepositorio registroIngresoRepositorio = mock(RegistroIngresoRepositorio.class);
+		ServicesPersistent servicesPersistent = mock(ServicesPersistent.class);
+		RegistryAdmittedService registryAdmittedService = mock(RegistryAdmittedService.class);
 
-		when(repositorioAdministrador.getIngresadosRepositorio()).thenReturn(registroIngresoRepositorio);
+		when(servicesPersistent.getRegistryAdmittedService()).thenReturn(registryAdmittedService);
 
-		when(registroIngresoRepositorio.obtenerCantidadPorTipoVehiculo(moto)).thenReturn(motoCondiciones.getCupo()-1);
-		when(registroIngresoRepositorio.obtenerPorVehiculo(moto)).thenReturn(null);
+		when(registryAdmittedService.countByTypeVehicle(moto.getTipo())).thenReturn(motoCondiciones.getCupo()-1);
+		when(registryAdmittedService.findByVehicle(moto)).thenReturn(new ArrayList<RegistryAdmitted>());
 
-		Ingreso ingreso = new Ingreso(repositorioAdministrador);
+		EnterVehicle enterVehicle = new EnterVehicle(servicesPersistent);
 
 		// act
-		ingreso.ingresar(fecha, moto);
+		enterVehicle.enter(fecha, moto);
 
 		// assert
-		assertEquals(Mensajes.INGRESO, ingreso.getMsg());
+		assertEquals(Messages.INGRESO_SATISFACTORIO, enterVehicle.getMsg());
 	}
 
 	@Test public void yaHabiaIngresado() {
 		// arrange
 		Date fecha = FechaTest.crearFecha(19, Calendar.FEBRUARY, 2018); // Lunes 19/febrero/2018
 		Moto moto = new MotoTestDataBuilder().conPlaca("ABC21G").build();
-		Condiciones motoCondiciones = Condiciones.get(moto);
-		RegistroIngreso registroIngreso = new RegistroIngreso();
-		registroIngreso.setVehiculo(moto);
-		registroIngreso.setIngreso(fecha);
+		Conditions motoCondiciones = Conditions.get(moto);
+		RegistryAdmitted registryAdmitted = new RegistryAdmitted(moto, fecha);
+		List<RegistryAdmitted> registryAdmittedList = new ArrayList<RegistryAdmitted>();
+		registryAdmittedList.add(registryAdmitted);
+		
+		ServicesPersistent servicesPersistent = mock(ServicesPersistent.class);
+		RegistryAdmittedService registryAdmittedService = mock(RegistryAdmittedService.class);
 
-		RepositorioAdministrador repositorioAdministrador = mock(RepositorioAdministrador.class);
-		RegistroIngresoRepositorio registroIngresoRepositorio = mock(RegistroIngresoRepositorio.class);
+		when(servicesPersistent.getRegistryAdmittedService()).thenReturn(registryAdmittedService);
 
-		when(repositorioAdministrador.getIngresadosRepositorio()).thenReturn(registroIngresoRepositorio);
+		when(registryAdmittedService.countByTypeVehicle(moto.getTipo())).thenReturn(motoCondiciones.getCupo()-1);
+		when(registryAdmittedService.findByVehicle(moto)).thenReturn(registryAdmittedList);
 
-		when(registroIngresoRepositorio.obtenerCantidadPorTipoVehiculo(moto)).thenReturn(motoCondiciones.getCupo()-1);
-		when(registroIngresoRepositorio.obtenerPorVehiculo(moto)).thenReturn(registroIngreso);
-
-		Ingreso ingreso = new Ingreso(repositorioAdministrador);
+		EnterVehicle enterVehicle = new EnterVehicle(servicesPersistent);
 
 		// act
-		ingreso.ingresar(fecha, moto);
+		enterVehicle.enter(fecha, moto);
 
 		// assert
-		assertEquals(Mensajes.YA_HABIA_INGRESADO, ingreso.getMsg());
+		assertEquals(Messages.YA_HABIA_INGRESADO, enterVehicle.getMsg());
 	}
 
 	@Test public void sinCupoMoto() {
 		// arrange
 		Date fecha = FechaTest.crearFecha(19, Calendar.FEBRUARY, 2018); // Lunes 19/febrero/2018
 		Moto moto = new MotoTestDataBuilder().conPlaca("ABC21G").build();
-		Condiciones motoCondiciones = Condiciones.get(moto);
+		Conditions motoCondiciones = Conditions.get(moto);
 
-		RepositorioAdministrador repositorioAdministrador = mock(RepositorioAdministrador.class);
-		RegistroIngresoRepositorio registroIngresoRepositorio = mock(RegistroIngresoRepositorio.class);
+		ServicesPersistent servicesPersistent = mock(ServicesPersistent.class);
+		RegistryAdmittedService registryAdmittedService = mock(RegistryAdmittedService.class);
 
-		when(repositorioAdministrador.getIngresadosRepositorio()).thenReturn(registroIngresoRepositorio);
+		when(servicesPersistent.getRegistryAdmittedService()).thenReturn(registryAdmittedService);
 
-		when(registroIngresoRepositorio.obtenerCantidadPorTipoVehiculo(moto)).thenReturn(motoCondiciones.getCupo());
-		when(registroIngresoRepositorio.obtenerPorVehiculo(moto)).thenReturn(null);
+		when(registryAdmittedService.countByTypeVehicle(moto.getTipo())).thenReturn(motoCondiciones.getCupo());
+		when(registryAdmittedService.findByVehicle(moto)).thenReturn(new ArrayList<RegistryAdmitted>());
 
-		Ingreso ingreso = new Ingreso(repositorioAdministrador);
+		EnterVehicle enterVehicle = new EnterVehicle(servicesPersistent);
 
 		// act
-		ingreso.ingresar(fecha, moto);
+		enterVehicle.enter(fecha, moto);
 
 		// assert
-		assertEquals(Mensajes.NO_HAY_CUPO, ingreso.getMsg());
+		assertEquals(Messages.NO_HAY_CUPO, enterVehicle.getMsg());
 	}
 	
 	@Test public void sinCupoCarro() {
 		// arrange
 		Date fecha = FechaTest.crearFecha(19, Calendar.FEBRUARY, 2018); // Lunes 19/febrero/2018
 		Carro carro = new CarroTestDataBuilder().conPlaca("ABC21G").build();
-		Condiciones carroCondiciones = Condiciones.get(carro);
+		Conditions carroCondiciones = Conditions.get(carro);
 
-		RepositorioAdministrador repositorioAdministrador = mock(RepositorioAdministrador.class);
-		RegistroIngresoRepositorio registroIngresoRepositorio = mock(RegistroIngresoRepositorio.class);
+		ServicesPersistent servicesPersistent = mock(ServicesPersistent.class);
+		RegistryAdmittedService registryAdmittedService = mock(RegistryAdmittedService.class);
 
-		when(repositorioAdministrador.getIngresadosRepositorio()).thenReturn(registroIngresoRepositorio);
+		when(servicesPersistent.getRegistryAdmittedService()).thenReturn(registryAdmittedService);
 
-		when(registroIngresoRepositorio.obtenerCantidadPorTipoVehiculo(carro)).thenReturn(carroCondiciones.getCupo());
-		when(registroIngresoRepositorio.obtenerPorVehiculo(carro)).thenReturn(null);
+		when(registryAdmittedService.countByTypeVehicle(carro.getTipo())).thenReturn(carroCondiciones.getCupo());
+		when(registryAdmittedService.findByVehicle(carro)).thenReturn(new ArrayList<RegistryAdmitted>());
 
-		Ingreso ingreso = new Ingreso(repositorioAdministrador);
+		EnterVehicle enterVehicle = new EnterVehicle(servicesPersistent);
 
 		// act
-		ingreso.ingresar(fecha, carro);
+		enterVehicle.enter(fecha, carro);
 
 		// assert
-		assertEquals(Mensajes.NO_HAY_CUPO, ingreso.getMsg());
+		assertEquals(Messages.NO_HAY_CUPO, enterVehicle.getMsg());
 	}
 	
 }
