@@ -2,7 +2,7 @@ package co.ceiba.parking.dominio;
 
 import co.ceiba.parking.dominio.objetos.Carro;
 import co.ceiba.parking.dominio.objetos.Moto;
-import co.ceiba.parking.dominio.objetos.Vehiculo;
+import co.ceiba.parking.persistencia.entidad.Vehiculo;
 
 public class Condiciones {	
 	private static final int HORAS_DIA_MINIMO = 9;

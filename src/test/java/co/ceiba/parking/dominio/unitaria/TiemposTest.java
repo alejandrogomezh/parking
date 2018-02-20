@@ -12,7 +12,7 @@ import org.junit.runners.MethodSorters;
 import co.ceiba.parking.dominio.Condiciones;
 import co.ceiba.parking.dominio.Tiempos;
 import co.ceiba.parking.dominio.objetos.Carro;
-import co.ceiba.parking.dominio.objetos.Registro;
+import co.ceiba.parking.persistencia.entidad.Registro;
 import testdatabuilder.CarroTestDataBuilder;
 import testdatabuilder.RegistroTestDataBuilder;
 import testutilidades.FechaTest;

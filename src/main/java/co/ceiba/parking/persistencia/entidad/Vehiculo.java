@@ -8,10 +8,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 
 @Entity(name="vehiculo")
-@NamedQueries({
-	@NamedQuery(name = "Vehiculo.obtenerPorTipoYPlaca", query = "SELECT from vehiculo where (vehiculo.tipo = :tipo, vehiculo.placa = :placa)")
-}) 
-public class VehiculoEntity {
+public class Vehiculo {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;

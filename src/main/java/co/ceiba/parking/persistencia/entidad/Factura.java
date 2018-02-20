@@ -8,13 +8,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity(name="factura")
-public class FacturaEntity {
+public class Factura {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	@ManyToOne
-	@JoinColumn(name="registro")
-	private RegistroEntity registro;
+	@JoinColumn(name="registro", referencedColumnName="id")
+	private Registro registro;
 	private int dias;
 	private int horas;
 	private double valorDias;
@@ -28,10 +28,10 @@ public class FacturaEntity {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public RegistroEntity getRegistro() {
+	public Registro getRegistro() {
 		return registro;
 	}
-	public void setRegistro(RegistroEntity registro) {
+	public void setRegistro(Registro registro) {
 		this.registro = registro;
 	}
 	public int getDias() {

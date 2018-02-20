@@ -1,8 +1,7 @@
 package testdatabuilder;
 
-import co.ceiba.parking.dominio.objetos.Factura;
-import co.ceiba.parking.dominio.objetos.Registro;
-import co.ceiba.parking.persistencia.entidad.FacturaEntity;
+import co.ceiba.parking.persistencia.entidad.Factura;
+import co.ceiba.parking.persistencia.entidad.Registro;
 
 public class FacturaTestDataBuilder {
 	private static final int DIAS = 1;
@@ -67,16 +66,14 @@ public class FacturaTestDataBuilder {
 	}
 
 	public Factura  build() {
-		FacturaEntity facturaEntity = new FacturaEntity();
-		facturaEntity.setRegistro(registro.getSelfEntity());
-		return new Factura(
-				registro,
-				dias,
-				horas,
-				valorDias,
-				valorHoras,
-				valorRecargo,
-				valorTotal
-				).setSelfEntity(facturaEntity);
+		Factura factura = new Factura();
+		factura.setRegistro(registro);
+		factura.setDias(dias);
+		factura.setHoras(horas);
+		factura.setValorDias(valorDias);
+		factura.setValorHoras(valorHoras);
+		factura.setValorRecargo(valorRecargo);
+		factura.setValorTotal(valorTotal);
+		return factura;
 	}
 }

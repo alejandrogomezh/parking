@@ -3,8 +3,8 @@ package testdatabuilder;
 import java.util.Calendar;
 import java.util.Date;
 
-import co.ceiba.parking.dominio.RegistroIngreso;
-import co.ceiba.parking.dominio.objetos.Vehiculo;
+import co.ceiba.parking.persistencia.entidad.RegistroIngreso;
+import co.ceiba.parking.persistencia.entidad.Vehiculo;
 import testutilidades.FechaTest;
 
 public class RegistroIngresoTestDataBuilder {
@@ -29,7 +29,10 @@ public class RegistroIngresoTestDataBuilder {
 	}
 	
 	public RegistroIngreso build() {
-		return new RegistroIngreso(vehiculo, ingreso);
+		RegistroIngreso registroIngreso = new RegistroIngreso();
+		registroIngreso.setVehiculo(vehiculo);
+		registroIngreso.setIngreso(ingreso);
+		return registroIngreso;
 	}
 	
 }

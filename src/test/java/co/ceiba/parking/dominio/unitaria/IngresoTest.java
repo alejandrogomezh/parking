@@ -12,13 +12,13 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
 import co.ceiba.parking.dominio.Condiciones;
-import co.ceiba.parking.dominio.RegistroIngreso;
 import co.ceiba.parking.dominio.Ingreso;
 import co.ceiba.parking.dominio.objetos.Carro;
 import co.ceiba.parking.dominio.objetos.Moto;
 import co.ceiba.parking.dominio.repositorio.RegistroIngresoRepositorio;
 import co.ceiba.parking.dominio.repositorio.RepositorioAdministrador;
 import co.ceiba.parking.mensajes.Mensajes;
+import co.ceiba.parking.persistencia.entidad.RegistroIngreso;
 import testdatabuilder.CarroTestDataBuilder;
 import testdatabuilder.MotoTestDataBuilder;
 import testutilidades.FechaTest;
@@ -123,7 +123,9 @@ public class IngresoTest {
 		Date fecha = FechaTest.crearFecha(19, Calendar.FEBRUARY, 2018); // Lunes 19/febrero/2018
 		Moto moto = new MotoTestDataBuilder().conPlaca("ABC21G").build();
 		Condiciones motoCondiciones = Condiciones.get(moto);
-		RegistroIngreso ingresado = new RegistroIngreso(moto, fecha);
+		RegistroIngreso registroIngreso = new RegistroIngreso();
+		registroIngreso.setVehiculo(moto);
+		registroIngreso.setIngreso(fecha);
 
 		RepositorioAdministrador repositorioAdministrador = mock(RepositorioAdministrador.class);
 		RegistroIngresoRepositorio registroIngresoRepositorio = mock(RegistroIngresoRepositorio.class);
@@ -131,7 +133,7 @@ public class IngresoTest {
 		when(repositorioAdministrador.getIngresadosRepositorio()).thenReturn(registroIngresoRepositorio);
 
 		when(registroIngresoRepositorio.obtenerCantidadPorTipoVehiculo(moto)).thenReturn(motoCondiciones.getCupo()-1);
-		when(registroIngresoRepositorio.obtenerPorVehiculo(moto)).thenReturn(ingresado);
+		when(registroIngresoRepositorio.obtenerPorVehiculo(moto)).thenReturn(registroIngreso);
 
 		Ingreso ingreso = new Ingreso(repositorioAdministrador);
 

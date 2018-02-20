@@ -13,7 +13,7 @@ import co.ceiba.parking.dominio.Costos;
 import co.ceiba.parking.dominio.interfaces.TiemposInterface;
 import co.ceiba.parking.dominio.objetos.Carro;
 import co.ceiba.parking.dominio.objetos.Moto;
-import co.ceiba.parking.dominio.objetos.Registro;
+import co.ceiba.parking.persistencia.entidad.Registro;
 import testdatabuilder.CarroTestDataBuilder;
 import testdatabuilder.MotoTestDataBuilder;
 import testdatabuilder.RegistroTestDataBuilder;

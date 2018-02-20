@@ -10,13 +10,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity(name="registro")
-public class RegistroEntity {
+public class Registro {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	@ManyToOne
-	@JoinColumn(name="vehiculo")
-	private VehiculoEntity vehiculo;
+	@JoinColumn(name="vehiculo", referencedColumnName="id")
+	private Vehiculo vehiculo;
 	private Date ingreso;
 	private Date salida;
 	
@@ -26,10 +26,10 @@ public class RegistroEntity {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public VehiculoEntity getVehiculo() {
+	public Vehiculo getVehiculo() {
 		return vehiculo;
 	}
-	public void setVehiculo(VehiculoEntity vehiculo) {
+	public void setVehiculo(Vehiculo vehiculo) {
 		this.vehiculo = vehiculo;
 	}
 	public Date getIngreso() {

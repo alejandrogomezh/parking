@@ -1,7 +1,9 @@
 package co.ceiba.parking.dominio.repositorio;
 
-import co.ceiba.parking.dominio.objetos.Factura;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface FacturaRepositorio {
-	Factura agregar(Factura factura);
+import co.ceiba.parking.persistencia.entidad.Factura;
+
+public interface FacturaRepositorio extends JpaRepository<Factura, Long>{
+	Factura save(Factura factura);
 }

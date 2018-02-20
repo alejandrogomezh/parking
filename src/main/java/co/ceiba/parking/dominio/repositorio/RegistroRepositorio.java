@@ -1,7 +1,9 @@
 package co.ceiba.parking.dominio.repositorio;
 
-import co.ceiba.parking.dominio.objetos.Registro;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface RegistroRepositorio{
-	Registro agregar(Registro registro);
+import co.ceiba.parking.persistencia.entidad.Registro;
+
+public interface RegistroRepositorio extends JpaRepository<Registro, Long>{
+	Registro save(Registro registro);
 }

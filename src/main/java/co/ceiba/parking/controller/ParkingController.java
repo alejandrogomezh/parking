@@ -6,8 +6,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import co.ceiba.parking.dominio.Vigilante;
-import co.ceiba.parking.dominio.objetos.Vehiculo;
+import co.ceiba.parking.dominio.repositorio.VehiculoRepositorio;
 import co.ceiba.parking.persistencia.administrador.AdministradorPersistencia;
+import co.ceiba.parking.persistencia.entidad.Vehiculo;
 
 @RestController
 public class ParkingController {
@@ -27,7 +28,14 @@ public class ParkingController {
   		@RequestParam(value="placa", defaultValue="") String placa,
   		@RequestParam(value="cilindraje", defaultValue="0") int cilindraje) {
   	
-  	Vehiculo vehiculo = new Vehiculo(tipo, placa, cilindraje);
+  	VehiculoRepositorio vehiculoRepositorio = administradorPersistencia.getVehiculoRepositorio();
+  	Vehiculo vehiculo = vehiculoRepositorio.obtenerPorTipoYPlaca(tipo, placa);
+  	if(vehiculo == null) {
+  		vehiculo = new Vehiculo();
+  		vehiculo.setTipo(tipo);
+  		vehiculo.setTipo(placa);
+  		
+  	}
   	return vigilante.ingreso(vehiculo);
   }
 

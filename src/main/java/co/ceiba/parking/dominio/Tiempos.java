@@ -3,7 +3,7 @@ package co.ceiba.parking.dominio;
 import java.util.Date;
 
 import co.ceiba.parking.dominio.interfaces.TiemposInterface;
-import co.ceiba.parking.dominio.objetos.Registro;
+import co.ceiba.parking.persistencia.entidad.Registro;
 
 public class Tiempos implements TiemposInterface{
 	private Condiciones condicion;

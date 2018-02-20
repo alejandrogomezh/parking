@@ -2,8 +2,8 @@ package co.ceiba.parking.dominio;
 
 import java.util.Date;
 
-import co.ceiba.parking.dominio.objetos.Vehiculo;
 import co.ceiba.parking.dominio.repositorio.RepositorioAdministrador;
+import co.ceiba.parking.persistencia.entidad.Vehiculo;
 
 public class Vigilante {
 	private Ingreso ingreso;

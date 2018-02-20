@@ -1,32 +1,26 @@
 package co.ceiba.parking.persistencia.administrador;
 
-import javax.persistence.EntityManager;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import co.ceiba.parking.dominio.repositorio.FacturaRepositorio;
 import co.ceiba.parking.dominio.repositorio.RegistroIngresoRepositorio;
 import co.ceiba.parking.dominio.repositorio.RegistroRepositorio;
 import co.ceiba.parking.dominio.repositorio.RepositorioAdministrador;
 import co.ceiba.parking.dominio.repositorio.VehiculoRepositorio;
-import co.ceiba.parking.persistencia.conexion.ConexionJPA;
-import co.ceiba.parking.persistencia.repositorio.FacturaRepositorioPersistente;
-import co.ceiba.parking.persistencia.repositorio.RegistroIngresoRepositorioPersistente;
-import co.ceiba.parking.persistencia.repositorio.RegistroRepositorioPersistente;
-import co.ceiba.parking.persistencia.repositorio.VehiculoRepositorioPersistente;
 
+@Configuration
+@EnableJpaRepositories("co.ceiba.dominio.repositorio")
 public class AdministradorPersistencia implements RepositorioAdministrador{
-	private EntityManager entityManager;
+	@Autowired
 	private FacturaRepositorio facturaRepositorio;
+	@Autowired
 	private RegistroIngresoRepositorio registroIngresoRepositorio;
+	@Autowired
 	private RegistroRepositorio registroRepositorio;
+	@Autowired
 	private VehiculoRepositorio vehiculoRepositorio;
-	
-	public AdministradorPersistencia() {
-		entityManager = new ConexionJPA().createEntityManager();
-		facturaRepositorio = new FacturaRepositorioPersistente(entityManager);
-		registroIngresoRepositorio = new RegistroIngresoRepositorioPersistente(entityManager);
-		registroRepositorio = new RegistroRepositorioPersistente(entityManager);
-		vehiculoRepositorio = new VehiculoRepositorioPersistente(entityManager);
-	}
 
 	@Override
 	public FacturaRepositorio getFacturaRepositorio() {
@@ -46,13 +40,5 @@ public class AdministradorPersistencia implements RepositorioAdministrador{
 	@Override
 	public VehiculoRepositorio getVehiculoRepositorio() {
 		return vehiculoRepositorio;
-	}
-
-	public void iniciar() {
-		entityManager.getTransaction().begin();
-	}
-
-	public void terminar() {
-		entityManager.getTransaction().commit();
 	}
 }

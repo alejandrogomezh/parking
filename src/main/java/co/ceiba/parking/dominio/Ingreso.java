@@ -3,10 +3,11 @@ package co.ceiba.parking.dominio;
 import java.util.Calendar;
 import java.util.Date;
 
-import co.ceiba.parking.dominio.objetos.Vehiculo;
 import co.ceiba.parking.dominio.repositorio.RegistroIngresoRepositorio;
 import co.ceiba.parking.dominio.repositorio.RepositorioAdministrador;
 import co.ceiba.parking.mensajes.Mensajes;
+import co.ceiba.parking.persistencia.entidad.RegistroIngreso;
+import co.ceiba.parking.persistencia.entidad.Vehiculo;
 
 public class Ingreso {
 	private RegistroIngresoRepositorio registroIngresoRepositorio;
@@ -22,7 +23,10 @@ public class Ingreso {
 		msg = "";
 		if (puedeIngresar(fecha, vehiculo)) {
 			msg = Mensajes.INGRESO;
-			return  new RegistroIngreso(vehiculo, fecha).persistente(registroIngresoRepositorio);
+			RegistroIngreso registroIngreso = new RegistroIngreso();
+			registroIngreso.setVehiculo(vehiculo);
+			registroIngreso.setIngreso(fecha);
+			return  registroIngresoRepositorio.save(registroIngreso);
 		}
 		return null;
 	}

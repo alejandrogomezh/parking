@@ -2,8 +2,8 @@ package co.ceiba.parking.dominio;
 
 import co.ceiba.parking.dominio.interfaces.CostosInterface;
 import co.ceiba.parking.dominio.interfaces.TiemposInterface;
-import co.ceiba.parking.dominio.objetos.Registro;
-import co.ceiba.parking.dominio.objetos.Vehiculo;
+import co.ceiba.parking.persistencia.entidad.Registro;
+import co.ceiba.parking.persistencia.entidad.Vehiculo;
 
 public class Costos implements CostosInterface{
 	private TiemposInterface tiempos;

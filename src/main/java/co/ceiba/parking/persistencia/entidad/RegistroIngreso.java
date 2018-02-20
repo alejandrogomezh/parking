@@ -6,20 +6,17 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity(name="registroingreso")
-
-@NamedQueries({
-	@NamedQuery(name = "RegistroIngreso.cantidadPorTipoVehiculo", query = "SELECT COUNT(*) from registroingreso where registroingreso.tipo = :tipo"),
-	@NamedQuery(name = "RegistroIngreso.obtenerPorPlaca", query = "SELECT from registroingreso where registroingreso.vehiculo.placa = :placa")
-}) 
-public class RegistroIngresoEntity {
+public class RegistroIngreso {	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	private VehiculoEntity vehiculo;
+	@ManyToOne
+	@JoinColumn(name="vehiculo", referencedColumnName="id")
+	private Vehiculo vehiculo;
 	private Date ingreso;
 	
 	public Long getId() {
@@ -28,10 +25,10 @@ public class RegistroIngresoEntity {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public VehiculoEntity getVehiculo() {
+	public Vehiculo getVehiculo() {
 		return vehiculo;
 	}
-	public void setVehiculo(VehiculoEntity vehiculo) {
+	public void setVehiculo(Vehiculo vehiculo) {
 		this.vehiculo = vehiculo;
 	}
 	public Date getIngreso() {
