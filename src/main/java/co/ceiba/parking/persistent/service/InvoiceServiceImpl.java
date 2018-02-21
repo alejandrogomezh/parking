@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import co.ceiba.parking.domain.objects.Invoice;
-import co.ceiba.parking.persistent.build.InvoiceBuilder;
+import co.ceiba.parking.persistent.builder.InvoiceBuilder;
 import co.ceiba.parking.persistent.entities.InvoiceEntity;
 import co.ceiba.parking.persistent.repositories.InvoiceRepository;
 

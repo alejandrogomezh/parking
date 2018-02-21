@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import co.ceiba.parking.domain.objects.Register;
-import co.ceiba.parking.persistent.build.RegisterBuilder;
+import co.ceiba.parking.persistent.builder.RegisterBuilder;
 import co.ceiba.parking.persistent.entities.RegisterEntity;
 import co.ceiba.parking.persistent.repositories.RegisterRepository;
 

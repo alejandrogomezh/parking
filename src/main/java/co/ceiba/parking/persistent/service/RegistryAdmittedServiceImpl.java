@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 
 import co.ceiba.parking.domain.objects.RegistryAdmitted;
 import co.ceiba.parking.domain.objects.Vehicle;
-import co.ceiba.parking.persistent.build.RegistryAdmittedBuilder;
-import co.ceiba.parking.persistent.build.VehicleBuilder;
+import co.ceiba.parking.persistent.builder.RegistryAdmittedBuilder;
+import co.ceiba.parking.persistent.builder.VehicleBuilder;
 import co.ceiba.parking.persistent.entities.RegistryAdmittedEntity;
 import co.ceiba.parking.persistent.entities.VehicleEntity;
 import co.ceiba.parking.persistent.repositories.RegistryAdmittedRepository;

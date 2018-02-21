@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import co.ceiba.parking.domain.objects.Vehicle;
-import co.ceiba.parking.persistent.build.VehicleBuilder;
+import co.ceiba.parking.persistent.builder.VehicleBuilder;
 import co.ceiba.parking.persistent.entities.VehicleEntity;
 import co.ceiba.parking.persistent.repositories.VehicleRepository;
 
