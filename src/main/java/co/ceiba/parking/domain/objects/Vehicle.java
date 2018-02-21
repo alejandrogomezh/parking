@@ -1,7 +1,7 @@
 package co.ceiba.parking.domain.objects;
 
 import co.ceiba.parking.persistent.entities.VehicleEntity;
-import co.ceiba.parking.service.persistent.VehicleService;
+import co.ceiba.parking.persistent.service.VehicleService;
 
 public class Vehicle {
 	private String tipo;
@@ -36,8 +36,8 @@ public class Vehicle {
 	}
 	
 	public Vehicle persist(VehicleService vehicleService) {
-		Vehicle self = vehicleService.findByTipoPlaca(tipo, placa);
-		if(self.selfEntity == null) {
+		Vehicle self = vehicleService.findByTipoAndPlaca(tipo, placa);
+		if(self == null) {
 			self = vehicleService.save(this);
 		}
 		if(self != null) this.selfEntity = self.selfEntity;

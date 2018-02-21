@@ -1,11 +1,16 @@
 package co.ceiba.parking.persistent.repositories;
 
-import co.ceiba.parking.domain.objects.Vehicle;
+import java.util.List;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface VehicleRepository{
-	Vehicle findByTipoPlaca(String tipo, String placa);
-	Vehicle save(Vehicle vehicleEntity);
-	//@Query("SELECT v from vehicle v where (v.tipo = :tipo) and (v.placa = :placa)")
-	//Vehicle obtenerPorTipoYPlaca(@Param("tipo") String tipo, @Param("placa") String placa);
+import co.ceiba.parking.persistent.entities.VehicleEntity;
+import java.lang.String;
+
+@Repository
+public interface VehicleRepository extends JpaRepository<VehicleEntity, Long>{
+	List<VehicleEntity> findByTipoAndPlaca(String tipo, String placa);
+	@SuppressWarnings("unchecked")
+	VehicleEntity save(VehicleEntity vehicleEntity);
 }

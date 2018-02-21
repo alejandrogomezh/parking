@@ -3,7 +3,7 @@ package co.ceiba.parking.domain;
 import java.util.Date;
 
 import co.ceiba.parking.domain.objects.Vehicle;
-import co.ceiba.parking.service.persistent.ServicesPersistent;
+import co.ceiba.parking.persistent.service.ServicesPersistent;
 
 public class Vigilant {
 	private EnterVehicle enterVehicle;

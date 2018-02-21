@@ -1,26 +1,32 @@
+server:
+  port: 8090
+         
+# ===============================
+# = Hibernate datasource
+# ===============================
 spring:
-  profiles:
-    active: dev
   datasource:
-    dataSourceClassName: org.h2.jdbcx.JdbcDataSource
-    url: jdbc:h2:tcp://localhost/~/parking;DB_CLOSE_DELAY=-1
-    databaseName: parking
-    serverName: 
-    username: alejandro.gomez
-    password:
+    url: jdbc:mysql://localhost:3306/parking
+    username: alejandro.gomez@ceiba.com.co
+    password: AGH821102
+
+# ===============================
+# = JPA configurations
+# ===============================
   jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
-    database: H2
-    openInView: false
-    show_sql: true
-    generate-ddl: true
+    show-sql: true
     hibernate:
-      ddl-auto: create-drop
-      naming-strategy: org.hibernate.cfg.EJB3NamingStrategy
+      ddl-auto: update
+    database-platform: MYSQL
     properties:
-      hibernate.cache.use_query_cache: false
-      hibernate.generate_statistics: true
-  data:
-    jpa:
-      repositories:
-        enabled: true
+      hibernate.dialect: org.hibernate.dialect.MySQL5Dialect
+
+# ===============================
+# = Logging configurations
+# ===============================
+logging:
+  level:
+    root: WARN
+    com.memorynotfound: DEBUG
+    org.springframework.web: INFO
+    org.springframework.security: INFO

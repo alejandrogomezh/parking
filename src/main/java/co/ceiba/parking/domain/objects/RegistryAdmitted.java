@@ -3,7 +3,7 @@ package co.ceiba.parking.domain.objects;
 import java.util.Date;
 
 import co.ceiba.parking.persistent.entities.RegistryAdmittedEntity;
-import co.ceiba.parking.service.persistent.RegistryAdmittedService;
+import co.ceiba.parking.persistent.service.RegistryAdmittedService;
 
 
 public class RegistryAdmitted {	

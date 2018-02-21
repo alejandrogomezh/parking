@@ -2,13 +2,12 @@ package co.ceiba.parking.domain;
 
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 import co.ceiba.parking.domain.objects.RegistryAdmitted;
 import co.ceiba.parking.domain.objects.Vehicle;
 import co.ceiba.parking.messages.Messages;
-import co.ceiba.parking.service.persistent.RegistryAdmittedService;
-import co.ceiba.parking.service.persistent.ServicesPersistent;
+import co.ceiba.parking.persistent.service.RegistryAdmittedService;
+import co.ceiba.parking.persistent.service.ServicesPersistent;
 
 public class EnterVehicle {
 	private RegistryAdmittedService registryAdmittedService;
@@ -58,13 +57,13 @@ public class EnterVehicle {
 	}
 
 	private boolean isHere(Vehicle vehicle) {
-		List<RegistryAdmitted> ingresos = registryAdmittedService.findByVehicle(vehicle);
-		return !ingresos.isEmpty();
+		RegistryAdmitted admitted = registryAdmittedService.findByVehicle(vehicle);
+		return (admitted != null);
 	}
 	
 	private boolean thereCapacity(Vehicle vehicle) {
 		Conditions conditions = Conditions.get(vehicle);
-		return registryAdmittedService.countByTypeVehicle(vehicle.getTipo()) < conditions.getCupo();
+		return registryAdmittedService.countByTypeVehicle(vehicle) < conditions.getCupo();
 	}
 		
 	public String getMsg() {

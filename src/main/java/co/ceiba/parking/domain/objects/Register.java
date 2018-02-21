@@ -3,7 +3,7 @@ package co.ceiba.parking.domain.objects;
 import java.util.Date;
 
 import co.ceiba.parking.persistent.entities.RegisterEntity;
-import co.ceiba.parking.service.persistent.RegisterService;
+import co.ceiba.parking.persistent.service.RegisterService;
 
 public class Register {
 	private Vehicle vehicle;

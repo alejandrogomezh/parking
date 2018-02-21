@@ -1,7 +1,7 @@
 package co.ceiba.parking.domain.objects;
 
 import co.ceiba.parking.persistent.entities.InvoiceEntity;
-import co.ceiba.parking.service.persistent.InvoiceService;
+import co.ceiba.parking.persistent.service.InvoiceService;
 
 public class Invoice {
 	private Register register;
