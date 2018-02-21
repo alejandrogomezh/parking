@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,8 +17,8 @@ public class RegistryAdmittedEntity implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	@ManyToOne
-	@JoinColumn(name="vehicle", referencedColumnName="id")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="vehicle")
 	private VehicleEntity vehicle;
 	private Date ingreso;
 	
@@ -39,4 +40,9 @@ public class RegistryAdmittedEntity implements Serializable {
 	public void setIngreso(Date ingreso) {
 		this.ingreso = ingreso;
 	}
+	@Override
+	public String toString() {
+		return "RegistryAdmittedEntity [id=" + id + ", vehicle=" + vehicle + ", ingreso=" + ingreso + "]";
+	}
+	
 }

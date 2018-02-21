@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="ISO-8859-1">
+		<title>Parking</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+		
+		<script>
+		var app = angular.module('myApp', []);
+		app.controller('myCtrl', function($scope, $location) {
+		    $scope.myUrl = $location.absUrl();
+		});
+		</script>
+		
+	</head>
+	<body>
+		<div style="margin: auto; text-align: center; width: 300px; height: 150px; border: solid; border-color: gray; border-width: 3px;">
+			<div style="margin-top: 20px;">
+				<div style="padding-left: 25px;">User: <input type="text" placeholder="User Name" style="width: 150px;" /></div>
+				<br>
+				<div>Password: <input type="password" placeholder="Password"  style="width: 150px;" /></div>
+			</div>
+			<br>
+			<button>Enter</button>
+		</div>
+	</body>
+</html>

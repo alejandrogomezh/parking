@@ -42,5 +42,9 @@ public class VehicleEntity implements Serializable {
 	public void setCilindraje(int cilindraje) {
 		this.cilindraje = cilindraje;
 	}
-
+	@Override
+	public String toString() {
+		return "VehicleEntity [id=" + id + ", tipo=" + tipo + ", placa=" + placa + ", cilindraje=" + cilindraje + "]";
+	}
+	
 }
