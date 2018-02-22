@@ -5,6 +5,7 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 //import java.util.concurrent.atomic.AtomicLong;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -46,6 +47,7 @@ public class ParkingController {
   }
 	
   @RequestMapping("/ingresar")
+  //@RequestMapping(value = "/ingresar", method = RequestMethod.POST)
   public String greeting(
   		@RequestParam(value="tipo", defaultValue="") String tipo,
   		@RequestParam(value="placa", defaultValue="") String placa,

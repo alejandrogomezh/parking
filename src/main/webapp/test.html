@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="ISO-8859-1">
+	<title>Insert title here</title>
+  	<script src='http://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular.js'></script>
+  	<script src='http://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular-resource.js'></script>
+ 	<script src='./js/parking-rest.js'></script>
+</head>
+<body>
+	<div ng-app="TestApp">
+		<div ng-controller="FirstCtrl">
+		  <br>Input is : <input type="text" data-ng-model="FirstName">
+		  <button ng-click="setData()">setData</button>
+		</div>
+		<hr>
+		
+		<div ng-controller="SecondCtrl">
+		  Input should also be here: <h1>{{data.FirstName}}</h1>
+		  <button ng-click="getData()">getData</button>
+		</div>
+	</div>
+</body>
+</html>
