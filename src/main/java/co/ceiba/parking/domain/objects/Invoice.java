@@ -3,7 +3,9 @@ package co.ceiba.parking.domain.objects;
 import co.ceiba.parking.persistent.entities.InvoiceEntity;
 import co.ceiba.parking.persistent.service.InvoiceService;
 
-public class Invoice {
+public class Invoice implements java.io.Serializable{
+	private static final long serialVersionUID = 3419707526275881224L;
+	
 	private Register register;
 	private int dias;
 	private int horas;
@@ -59,4 +61,11 @@ public class Invoice {
 		if(self != null) this.selfEntity = self.selfEntity;
 		return this;
 	}
+	@Override
+	public String toString() {
+		return "Invoice [register=" + register + ", dias=" + dias + ", horas=" + horas + ", valorDias=" + valorDias
+				+ ", valorHoras=" + valorHoras + ", valorRecargo=" + valorRecargo + ", valorTotal=" + valorTotal + "]";
+	}
+	
+	
 }

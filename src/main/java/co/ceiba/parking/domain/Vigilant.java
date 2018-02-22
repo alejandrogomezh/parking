@@ -2,78 +2,79 @@ package co.ceiba.parking.domain;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
+import co.ceiba.parking.domain.excepcion.ParkingException;
 import co.ceiba.parking.domain.objects.Invoice;
 import co.ceiba.parking.domain.objects.Register;
-import co.ceiba.parking.domain.objects.RegistryAdmitted;
 import co.ceiba.parking.domain.objects.Vehicle;
 import co.ceiba.parking.messages.Messages;
 import co.ceiba.parking.persistent.service.InvoiceService;
 import co.ceiba.parking.persistent.service.RegisterService;
-import co.ceiba.parking.persistent.service.RegistryAdmittedService;
 import co.ceiba.parking.persistent.service.ServicesPersistent;
 import co.ceiba.parking.persistent.service.VehicleService;
 
 public class Vigilant {
 	private VehicleService vehicleService;
-	private RegistryAdmittedService registryAdmittedService;
 	private RegisterService registerService;
 	private InvoiceService invoiceService;
-	private String msg;
 	
 	public Vigilant(ServicesPersistent servicesPersistent) {
 		vehicleService = servicesPersistent.getVehicleService();
-		registryAdmittedService = servicesPersistent.getRegistryAdmittedService();
 		invoiceService = servicesPersistent.getInvoiceService();
 		registerService = servicesPersistent.getRegisterService();
-		msg = "";
 	}
 	
 	public String ingreso(String tipo, String placa, int cilindraje) {
 		Date ingreso = dateNow();
-		
+		placa = placa.toUpperCase();
 		
 		Vehicle vehicle = createVehicle(tipo, placa, cilindraje);
   	
 		if(!isAutorized(vehicle, ingreso)) {
-			msg = Messages.INGRESO_NO_AUTORIZADO;
-			return msg;
+			throw new ParkingException(Messages.INGRESO_NO_AUTORIZADO);
 		}
 		if(isHere(vehicle)) {
-			msg = Messages.YA_HABIA_INGRESADO;
-			return msg;
+			throw new ParkingException(Messages.YA_HABIA_INGRESADO);
 		}
 		if(!thereCapacity(vehicle)) {
-			msg = Messages.NO_HAY_CUPO;
-			return msg;
+			throw new ParkingException(Messages.NO_HAY_CUPO);
 		}
 
-		createRegistryAdmitted(vehicle, ingreso);
-		msg = Messages.INGRESO_SATISFACTORIO;
-		
-		return getMsg();
+		setInVehicle(vehicle, ingreso);
+		return Messages.INGRESO_SATISFACTORIO;
 	}
 	
-	public String salida(Vehicle vehicle) {
+	public String salida(String placa) {
 		Date salida = dateNow();
+		placa = placa.toUpperCase();
+		
+		Vehicle vehicle = getVehicle(placa);
+		
+		if(vehicle == null) {
+			throw new ParkingException(Messages.VEHICULO_NO_EXISTE);
+		}
 		
 		if(!isHere(vehicle)) {
-			msg = Messages.NO_A_INGRESADO;
-			return null;
+			throw new ParkingException(Messages.NO_A_INGRESADO);
 		}
 
 		Conditions conditions = Conditions.get(vehicle);
-		Register register = createRegister(vehicle, salida);
+		Register register = setOutVehicle(vehicle, salida);
 		Time time = new Time(conditions, register).calculate();
 		Cost cost = new Cost(time).calculate();
 		
 		createInvoice(register, time, cost);
-		return getMsg();
+		return Messages.SALIDA_SATISFACTORIO;
 	}
 	
-	public boolean isAutorized(Vehicle vehicle, Date date) {
-		String placa = vehicle.getPlaca().toLowerCase();
-		if (placa.startsWith("a")) {
+	public List<Register> getAdmittedList() {
+		return registerService.allVehiclesActives();
+	}
+	
+	private boolean isAutorized(Vehicle vehicle, Date date) {
+		String placa = vehicle.getPlaca();
+		if (placa.startsWith("A")) {
 			Calendar calendar = Calendar.getInstance();
 			calendar.setTime(date);
 			switch (calendar.get(Calendar.DAY_OF_WEEK)) {
@@ -88,19 +89,23 @@ public class Vigilant {
 		return true;
 	}
 
-	public boolean isHere(Vehicle vehicle) {
-		RegistryAdmitted admitted = registryAdmittedService.findByVehicle(vehicle);
+	private boolean isHere(Vehicle vehicle) {
+		Register admitted = registerService.findByVehicleActive(vehicle);
 		return (admitted != null);
 	}
 	
-	public boolean thereCapacity(Vehicle vehicle) {
+	private boolean thereCapacity(Vehicle vehicle) {
 		Conditions conditions = Conditions.get(vehicle);
-		int count = registryAdmittedService.countByTypeVehicle(vehicle);
+		int count = registerService.countByTypeVehicle(vehicle);
 		return count < conditions.getCupo();
 	}
 	
-	public Vehicle createVehicle(String tipo, String placa, int cilindraje) {
-		Vehicle vehicle = vehicleService.findByTipoAndPlaca(tipo, placa);
+	private Vehicle getVehicle(String placa) {
+		return vehicleService.findByPlaca(placa);
+	}
+	
+	private Vehicle createVehicle(String tipo, String placa, int cilindraje) {
+		Vehicle vehicle = vehicleService.findByPlaca(placa);
   	if(vehicle == null) {
   		vehicle = new Vehicle(
   				tipo,
@@ -111,23 +116,21 @@ public class Vigilant {
   	return vehicle;
 	}
 	
-	public RegistryAdmitted createRegistryAdmitted(Vehicle vehicle, Date date) {
-		return new RegistryAdmitted(
-				vehicle,
-				date
-				).persist(registryAdmittedService);
-	}
-	
-	public Register createRegister(Vehicle vehicle, Date salida) {
-		RegistryAdmitted admitted = registryAdmittedService.findByVehicle(vehicle);
+	private Register setInVehicle(Vehicle vehicle, Date input) {
 		return new Register(
-				admitted.getVehicle(),
-				admitted.getIngreso(),
-				salida
+				vehicle,
+				input
 				).persist(registerService);
 	}
 	
-	public Invoice createInvoice(Register register, Time time, Cost cost) {
+	private Register setOutVehicle(Vehicle vehicle, Date output) {
+		Register admitted = registerService.findByVehicleActive(vehicle);
+		admitted.setSalida(output);
+		registerService.save(admitted);
+		return admitted;
+	}
+	
+	private Invoice createInvoice(Register register, Time time, Cost cost) {
 		return new Invoice(
 				register,
 				time.getDias(),
@@ -139,10 +142,6 @@ public class Vigilant {
 				).persist(invoiceService);
 	}
 
-	public String getMsg() {
-		return msg;
-	}
-	
 	protected Date dateNow() {
 		return new Date();
 	}

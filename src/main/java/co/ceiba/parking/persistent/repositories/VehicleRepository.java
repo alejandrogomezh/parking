@@ -10,7 +10,7 @@ import java.lang.String;
 
 @Repository
 public interface VehicleRepository extends JpaRepository<VehicleEntity, Long>{
-	List<VehicleEntity> findByTipoAndPlaca(String tipo, String placa);
+	List<VehicleEntity> findByPlaca(String placa);
 	@SuppressWarnings("unchecked")
 	VehicleEntity save(VehicleEntity vehicleEntity);
 }

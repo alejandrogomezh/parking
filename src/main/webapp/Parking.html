@@ -1,23 +1,41 @@
 <!DOCTYPE html>
 <html>
     <head>
+		<meta charset="ISO-8859-1">
+		<title>Parqueadero</title>
         <script src='http://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular.js'></script>
         <script src='http://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular-resource.js'></script>
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-		<script src='./js/parking-rest.js'></script>
+		<link type="text/css" rel="stylesheet" href="./css/parking.css">		
+		<script src='./js/parking_rest.js'></script>
     </head>
-    <body ng-app='consumeRestApp'>
-        <div ng-controller='ArtistsCtrl'>
-            <div ng-repeat='parked in parking'>
-                <p>{{ parked.name }} wrote {{ parked.albums.length }} albums:</p>
-                <div ng-repeat='album in parked.albums'>
-                    <p style='text-indent: 20px'>
-                        Album titled <b>{{ album.title }}</b> by
-                                     <b>{{ album.parked }}</b> contains
-                                     <b>{{ album.ntracks }}</b> tracks
-                    </p>
-                </div>
-            </div>
-        </div>
+    <body ng-app='ParkingApp'>
+      	<div class="page-container">
+			<div class="form-container">
+			    <h1>Parqueadero</h1>
+			    <form ng-controller="parkingCtrl">
+			    	<select ng-model="tipo">
+			    		<option value="moto">Moto</option>
+			    		<option value="carro">Carro</option>
+			    	</select>
+			        <input ng-model="placa" type="text" name="placa" placeholder="placa">
+			        <input ng-model="cilindraje" type="text" name="cilindraje" placeholder="cilindraje">
+			        <button ng-click="submit()">Ingresar</button>
+			        <div class="answer"><span></span></div>
+			    </form>
+			</div>
+	        <div ng-controller='admittedCtrl'>
+	            <div ng-repeat='parked in parking'>
+	                <p>Vehiculos:</p>
+	                <div ng-repeat='album in parked.albums'>
+	                    <p style='text-indent: 20px'>
+	                        Album titled <b>{{ album.title }}</b> by
+	                                     <b>{{ album.parked }}</b> contains
+	                                     <b>{{ album.ntracks }}</b> tracks
+	                    </p>
+	                </div>
+	            </div>
+	        </div>
+		</div>
     </body>
 </html>

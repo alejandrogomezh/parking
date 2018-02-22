@@ -26,9 +26,9 @@ public class VehicleServiceImpl implements VehicleService {
 	}
 	
 	@Transactional
-	public Vehicle findByTipoAndPlaca(String tipo, String placa) {
+	public Vehicle findByPlaca(String placa) {
 		List<VehicleEntity> vehicleEntities;
-		vehicleEntities = vehicleRepository.findByTipoAndPlaca(tipo, placa);
+		vehicleEntities = vehicleRepository.findByPlaca(placa);
 		if(vehicleEntities.isEmpty()) return null;
 		return VehicleBuilder.toDomain(vehicleEntities.get(0));
 	}

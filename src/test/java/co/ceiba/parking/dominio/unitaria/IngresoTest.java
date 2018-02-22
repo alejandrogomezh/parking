@@ -14,11 +14,12 @@ import org.junit.runners.MethodSorters;
 
 import co.ceiba.parking.domain.Conditions;
 import co.ceiba.parking.domain.Vigilant;
+import co.ceiba.parking.domain.excepcion.ParkingException;
 import co.ceiba.parking.domain.objects.Carro;
 import co.ceiba.parking.domain.objects.Moto;
-import co.ceiba.parking.domain.objects.RegistryAdmitted;
+import co.ceiba.parking.domain.objects.Register;
 import co.ceiba.parking.messages.Messages;
-import co.ceiba.parking.persistent.service.RegistryAdmittedService;
+import co.ceiba.parking.persistent.service.RegisterService;
 import co.ceiba.parking.persistent.service.ServicesPersistent;
 import co.ceiba.parking.persistent.service.VehicleService;
 import testdatabuilder.CarroTestDataBuilder;
@@ -35,22 +36,26 @@ public class IngresoTest {
 		Conditions motoCondiciones = Conditions.get(moto);
 		
 		ServicesPersistent servicesPersistent = mock(ServicesPersistent.class);
-		RegistryAdmittedService registryAdmittedService = mock(RegistryAdmittedService.class);
+		RegisterService registerService = mock(RegisterService.class);
 		VehicleService vehicleService = mock(VehicleService.class);
 
-		when(servicesPersistent.getRegistryAdmittedService()).thenReturn(registryAdmittedService);
+		when(servicesPersistent.getRegisterService()).thenReturn(registerService);
 		when(servicesPersistent.getVehicleService()).thenReturn(vehicleService);
 
-		when(registryAdmittedService.countByTypeVehicle(moto)).thenReturn(motoCondiciones.getCupo()-1);
+		when(registerService.countByTypeVehicle(moto)).thenReturn(motoCondiciones.getCupo()-1);
 		Vigilant vigilant = new Vigilant(servicesPersistent) {
 			protected Date dateNow() {return fecha;};
 		};
-
+		
+		String msg;
 		// act
-		vigilant.ingreso(moto.getTipo(), moto.getPlaca(), moto.getCilindraje());
-
-		// assert
-		assertEquals(Messages.INGRESO_NO_AUTORIZADO, vigilant.getMsg());
+		try {
+			msg = vigilant.ingreso(moto.getTipo(), moto.getPlaca(), moto.getCilindraje());
+		} catch (ParkingException e) {
+			msg = e.getMessage();
+		}
+		// assert	
+		assertEquals(Messages.INGRESO_NO_AUTORIZADO, msg);
 	}
 
 	@Test public void noIngresarPlacaADiaSabado() {
@@ -60,23 +65,27 @@ public class IngresoTest {
 		Conditions motoCondiciones = Conditions.get(moto);
 
 		ServicesPersistent servicesPersistent = mock(ServicesPersistent.class);
-		RegistryAdmittedService registryAdmittedService = mock(RegistryAdmittedService.class);
+		RegisterService registerService = mock(RegisterService.class);
 		VehicleService vehicleService = mock(VehicleService.class);
 
-		when(servicesPersistent.getRegistryAdmittedService()).thenReturn(registryAdmittedService);
+		when(servicesPersistent.getRegisterService()).thenReturn(registerService);
 		when(servicesPersistent.getVehicleService()).thenReturn(vehicleService);
 
-		when(registryAdmittedService.countByTypeVehicle(moto)).thenReturn(motoCondiciones.getCupo()-1);
+		when(registerService.countByTypeVehicle(moto)).thenReturn(motoCondiciones.getCupo()-1);
 
 		Vigilant vigilant = new Vigilant(servicesPersistent) {
 			protected Date dateNow() {return fecha;};
 		};
 
+		String msg;
 		// act
-		vigilant.ingreso(moto.getTipo(), moto.getPlaca(), moto.getCilindraje());
-
-		// assert
-		assertEquals(Messages.INGRESO_NO_AUTORIZADO, vigilant.getMsg());
+		try {
+			msg = vigilant.ingreso(moto.getTipo(), moto.getPlaca(), moto.getCilindraje());
+		} catch (ParkingException e) {
+			msg = e.getMessage();
+		}
+		// assert	
+		assertEquals(Messages.INGRESO_NO_AUTORIZADO, msg);
 	}
 
 	@Test public void ingresarPlacaNoADiaDomingo() {
@@ -86,23 +95,27 @@ public class IngresoTest {
 		Conditions motoCondiciones = Conditions.get(moto);
 
 		ServicesPersistent servicesPersistent = mock(ServicesPersistent.class);
-		RegistryAdmittedService registryAdmittedService = mock(RegistryAdmittedService.class);
+		RegisterService registerService = mock(RegisterService.class);
 		VehicleService vehicleService = mock(VehicleService.class);
 
-		when(servicesPersistent.getRegistryAdmittedService()).thenReturn(registryAdmittedService);
+		when(servicesPersistent.getRegisterService()).thenReturn(registerService);
 		when(servicesPersistent.getVehicleService()).thenReturn(vehicleService);
 
-		when(registryAdmittedService.countByTypeVehicle(moto)).thenReturn(motoCondiciones.getCupo()-1);
+		when(registerService.countByTypeVehicle(moto)).thenReturn(motoCondiciones.getCupo()-1);
 
 		Vigilant vigilant = new Vigilant(servicesPersistent) {
 			protected Date dateNow() {return fecha;};
 		};
 
+		String msg;
 		// act
-		vigilant.ingreso(moto.getTipo(), moto.getPlaca(), moto.getCilindraje());
-
-		// assert
-		assertEquals(Messages.INGRESO_SATISFACTORIO, vigilant.getMsg());
+		try {
+			msg = vigilant.ingreso(moto.getTipo(), moto.getPlaca(), moto.getCilindraje());
+		} catch (ParkingException e) {
+			msg = e.getMessage();
+		}
+		// assert	
+		assertEquals(Messages.INGRESO_SATISFACTORIO, msg);
 	}
 
 	@Test public void ingresarPlacaADiaLunes() {
@@ -112,23 +125,27 @@ public class IngresoTest {
 		Conditions motoCondiciones = Conditions.get(moto);
 
 		ServicesPersistent servicesPersistent = mock(ServicesPersistent.class);
-		RegistryAdmittedService registryAdmittedService = mock(RegistryAdmittedService.class);
+		RegisterService registerService = mock(RegisterService.class);
 		VehicleService vehicleService = mock(VehicleService.class);
 
-		when(servicesPersistent.getRegistryAdmittedService()).thenReturn(registryAdmittedService);
+		when(servicesPersistent.getRegisterService()).thenReturn(registerService);
 		when(servicesPersistent.getVehicleService()).thenReturn(vehicleService);
 
-		when(registryAdmittedService.countByTypeVehicle(moto)).thenReturn(motoCondiciones.getCupo()-1);
+		when(registerService.countByTypeVehicle(moto)).thenReturn(motoCondiciones.getCupo()-1);
 
 		Vigilant vigilant = new Vigilant(servicesPersistent) {
 			protected Date dateNow() {return fecha;};
 		};
 
+		String msg;
 		// act
-		vigilant.ingreso(moto.getTipo(), moto.getPlaca(), moto.getCilindraje());
-
-		// assert
-		assertEquals(Messages.INGRESO_SATISFACTORIO, vigilant.getMsg());
+		try {
+			msg = vigilant.ingreso(moto.getTipo(), moto.getPlaca(), moto.getCilindraje());
+		} catch (ParkingException e) {
+			msg = e.getMessage();
+		}
+		// assert	
+		assertEquals(Messages.INGRESO_SATISFACTORIO, msg);
 	}
 
 	@Test public void yaHabiaIngresado() {
@@ -136,28 +153,32 @@ public class IngresoTest {
 		Date fecha = FechaTest.crearFecha(19, Calendar.FEBRUARY, 2018); // Lunes 19/febrero/2018
 		Moto moto = new MotoTestDataBuilder().conPlaca("ABC21G").build();
 		Conditions motoCondiciones = Conditions.get(moto);
-		RegistryAdmitted registryAdmitted = new RegistryAdmitted(moto, fecha);
+		Register registryAdmitted = new Register(moto, fecha);
 
 		ServicesPersistent servicesPersistent = mock(ServicesPersistent.class);
-		RegistryAdmittedService registryAdmittedService = mock(RegistryAdmittedService.class);
+		RegisterService registerService = mock(RegisterService.class);
 		VehicleService vehicleService = mock(VehicleService.class);
 
-		when(servicesPersistent.getRegistryAdmittedService()).thenReturn(registryAdmittedService);
+		when(servicesPersistent.getRegisterService()).thenReturn(registerService);
 		when(servicesPersistent.getVehicleService()).thenReturn(vehicleService);
 
-		when(vehicleService.findByTipoAndPlaca(moto.getTipo(), moto.getPlaca())).thenReturn(moto);
-		when(registryAdmittedService.countByTypeVehicle(any(Moto.class))).thenReturn(motoCondiciones.getCupo()-1);
-		when(registryAdmittedService.findByVehicle(moto)).thenReturn(registryAdmitted);
+		when(vehicleService.findByPlaca(moto.getPlaca())).thenReturn(moto);
+		when(registerService.countByTypeVehicle(any(Moto.class))).thenReturn(motoCondiciones.getCupo()-1);
+		when(registerService.findByVehicleActive(moto)).thenReturn(registryAdmitted);
 
 		Vigilant vigilant = new Vigilant(servicesPersistent) {
 			protected Date dateNow() {return fecha;};
 		};
 
+		String msg;
 		// act
-		vigilant.ingreso(moto.getTipo(), moto.getPlaca(), moto.getCilindraje());
-
-		// assert
-		assertEquals(Messages.YA_HABIA_INGRESADO, vigilant.getMsg());
+		try {
+			msg = vigilant.ingreso(moto.getTipo(), moto.getPlaca(), moto.getCilindraje());
+		} catch (ParkingException e) {
+			msg = e.getMessage();
+		}
+		// assert	
+		assertEquals(Messages.YA_HABIA_INGRESADO, msg);
 	}
 
 	@Test public void sinCupoMoto() {
@@ -167,23 +188,27 @@ public class IngresoTest {
 		Conditions motoCondiciones = Conditions.get(moto);
 
 		ServicesPersistent servicesPersistent = mock(ServicesPersistent.class);
-		RegistryAdmittedService registryAdmittedService = mock(RegistryAdmittedService.class);
+		RegisterService registerService = mock(RegisterService.class);
 		VehicleService vehicleService = mock(VehicleService.class);
 
-		when(servicesPersistent.getRegistryAdmittedService()).thenReturn(registryAdmittedService);
+		when(servicesPersistent.getRegisterService()).thenReturn(registerService);
 		when(servicesPersistent.getVehicleService()).thenReturn(vehicleService);
 
-		when(registryAdmittedService.countByTypeVehicle(any(Moto.class))).thenReturn(motoCondiciones.getCupo());
+		when(registerService.countByTypeVehicle(any(Moto.class))).thenReturn(motoCondiciones.getCupo());
 
 		Vigilant vigilant = new Vigilant(servicesPersistent) {
 			protected Date dateNow() {return fecha;};
 		};
 
+		String msg;
 		// act
-		vigilant.ingreso(moto.getTipo(), moto.getPlaca(), moto.getCilindraje());
-
-		// assert
-		assertEquals(Messages.NO_HAY_CUPO, vigilant.getMsg());
+		try {
+			msg = vigilant.ingreso(moto.getTipo(), moto.getPlaca(), moto.getCilindraje());
+		} catch (ParkingException e) {
+			msg = e.getMessage();
+		}
+		// assert	
+		assertEquals(Messages.NO_HAY_CUPO, msg);
 	}
 	
 	@Test public void sinCupoCarro() {
@@ -193,23 +218,27 @@ public class IngresoTest {
 		Conditions carroCondiciones = Conditions.get(carro);
 
 		ServicesPersistent servicesPersistent = mock(ServicesPersistent.class);
-		RegistryAdmittedService registryAdmittedService = mock(RegistryAdmittedService.class);
+		RegisterService registerService = mock(RegisterService.class);
 		VehicleService vehicleService = mock(VehicleService.class);
 
-		when(servicesPersistent.getRegistryAdmittedService()).thenReturn(registryAdmittedService);
+		when(servicesPersistent.getRegisterService()).thenReturn(registerService);
 		when(servicesPersistent.getVehicleService()).thenReturn(vehicleService);
 
-		when(registryAdmittedService.countByTypeVehicle(any(Carro.class))).thenReturn(carroCondiciones.getCupo());
+		when(registerService.countByTypeVehicle(any(Carro.class))).thenReturn(carroCondiciones.getCupo());
 
 		Vigilant vigilant = new Vigilant(servicesPersistent) {
 			protected Date dateNow() {return fecha;};
 		};
 
+		String msg;
 		// act
-		vigilant.ingreso(carro.getTipo(), carro.getPlaca(), carro.getCilindraje());
-
-		// assert
-		assertEquals(Messages.NO_HAY_CUPO, vigilant.getMsg());
+		try {
+			msg = vigilant.ingreso(carro.getTipo(), carro.getPlaca(), carro.getCilindraje());
+		} catch (ParkingException e) {
+			msg = e.getMessage();
+		}
+		// assert	
+		assertEquals(Messages.NO_HAY_CUPO, msg);
 	}
 	
 }

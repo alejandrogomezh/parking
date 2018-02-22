@@ -3,7 +3,9 @@ package co.ceiba.parking.domain.objects;
 import co.ceiba.parking.persistent.entities.VehicleEntity;
 import co.ceiba.parking.persistent.service.VehicleService;
 
-public class Vehicle {
+public class Vehicle implements java.io.Serializable{
+	private static final long serialVersionUID = -7644302969449909424L;
+	
 	private String tipo;
 	private String placa;
 	private int cilindraje;
@@ -36,12 +38,17 @@ public class Vehicle {
 	}
 	
 	public Vehicle persist(VehicleService vehicleService) {
-		Vehicle self = vehicleService.findByTipoAndPlaca(tipo, placa);
+		Vehicle self = vehicleService.findByPlaca(placa);
 		if(self == null) {
 			self = vehicleService.save(this);
 		}
 		if(self != null) this.selfEntity = self.selfEntity;
 		return this;
+	}
+
+	@Override
+	public String toString() {
+		return "Vehicle [tipo=" + tipo + ", placa=" + placa + ", cilindraje=" + cilindraje + "]";
 	}
 	
 }

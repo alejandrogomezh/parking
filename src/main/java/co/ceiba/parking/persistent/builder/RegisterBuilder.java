@@ -1,5 +1,8 @@
 package co.ceiba.parking.persistent.builder;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import co.ceiba.parking.domain.objects.Register;
 import co.ceiba.parking.domain.objects.Vehicle;
 import co.ceiba.parking.persistent.entities.RegisterEntity;
@@ -25,6 +28,14 @@ public class RegisterBuilder {
 		return register;
 	}
 	
+	public static List<Register> toDomain(List<RegisterEntity> registerEntities) {
+		List<Register> registers = new ArrayList<>();
+		for(RegisterEntity registerEntity : registerEntities) {
+			registers.add(toDomain(registerEntity));
+		}
+		return registers;
+	}
+	
 	public static RegisterEntity toEntity(Register register) {
 		if(register.getSelfEntity() != null) return register.getSelfEntity();
 		VehicleEntity vehicleEntity = register.getVehicle().getSelfEntity();
@@ -34,5 +45,14 @@ public class RegisterBuilder {
 		registerEntity.setSalida(register.getSalida());
 		return registerEntity;
 	}
+	
+	public static List<RegisterEntity> toEntity(List<Register> registers) {
+		List<RegisterEntity> registerEntities = new ArrayList<>();
+		for(Register register : registers) {
+			registerEntities.add(toEntity(register));
+		}
+		return registerEntities;
+	}
+	
 	
 }

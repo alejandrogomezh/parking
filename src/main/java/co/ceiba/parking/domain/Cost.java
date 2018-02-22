@@ -53,5 +53,5 @@ public class Cost implements CostInterface{
 	public double getValorTotal() {
 		return valorTotal;
 	}
-	
+
 }
