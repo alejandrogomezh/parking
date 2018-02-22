@@ -30,10 +30,9 @@ public class RegisterServiceImpl implements RegisterService{
 	@Override
 	public Register findByVehicleActive(Vehicle vehicle) {
 		VehicleEntity vehicleEntity = VehicleBuilder.toEntity(vehicle);
-		List<RegisterEntity> registerEntities;
-		registerEntities = registerRepository.findByVehicleAndSalida(vehicleEntity, null);
-		if(registerEntities.isEmpty()) return null;
-		return RegisterBuilder.toDomain(registerEntities.get(0));
+		RegisterEntity registerEntity;
+		registerEntity = registerRepository.findByVehicleAndSalida(vehicleEntity, null);
+		return RegisterBuilder.toDomain(registerEntity);
 	}
 
 	@Override

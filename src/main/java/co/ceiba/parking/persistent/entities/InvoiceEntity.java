@@ -17,7 +17,7 @@ public class InvoiceEntity implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne//(fetch = FetchType.LAZY)
 	@JoinColumn(name="register")
 	private RegisterEntity register;
 	private int dias;

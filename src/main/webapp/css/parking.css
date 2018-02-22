@@ -6,6 +6,9 @@ body {
     color: #fff;
 }
 
+table, th, td {
+   border: 1px solid black;
+}
 .page-container {
     margin: 120px auto 0 auto;
 }

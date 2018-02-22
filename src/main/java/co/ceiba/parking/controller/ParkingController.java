@@ -1,6 +1,7 @@
 package co.ceiba.parking.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -76,19 +77,36 @@ public class ParkingController {
   
 //  @RequestMapping(value = "/admitted", method = RequestMethod.GET)
 //  @ResponseBody
+//  public List<Register> admitted() {
+//  	List<Register> registers = new ArrayList<Register>();
+//   	registers.add(new Register(new Vehicle("tipo1", "placa1", 125) , new Date()));
+//   	registers.add(new Register(new Vehicle("tipo2", "placa2", 125) , new Date()));
+//  	return registers;//("tipo", "placa", 125);
+//  }
+
+  @RequestMapping(value = "/admitted", method = RequestMethod.GET)
+  @ResponseBody
+  public List<Register> admitted() {
+  	Vigilant vigilant = new Vigilant(servicesPersistent);
+  	List<Register> registers = vigilant.getAdmittedList();
+  	return registers;
+  }
+  
+//  @RequestMapping(value = "/admitted", method = RequestMethod.GET)
+//  @ResponseBody
 //  public List<Vehicle> admitted() {
 //  	List<Vehicle> vehicles = new ArrayList<Vehicle>();
 //  	vehicles.add(new Vehicle("tipo", "placa", 125));
 //  	return vehicles;//("tipo", "placa", 125);
 //  }
 
-  @RequestMapping(value = "/admitted", method = RequestMethod.GET)
-  @ResponseBody
-  public List<RegisterEntity> admitted() {
-  	MappingJackson2HttpMessageConverter converter= new MappingJackson2HttpMessageConverter();
-  	Vigilant vigilant = new Vigilant(servicesPersistent);
-  	return RegisterBuilder.toEntity(vigilant.getAdmittedList());
-  }
+//  @RequestMapping(value = "/admitted", method = RequestMethod.GET)
+//  @ResponseBody
+//  public List<RegisterEntity> admitted() {
+//  	MappingJackson2HttpMessageConverter converter= new MappingJackson2HttpMessageConverter();
+//  	Vigilant vigilant = new Vigilant(servicesPersistent);
+//  	return RegisterBuilder.toEntity(vigilant.getAdmittedList());
+//  }
 //  
 //  @RequestMapping(value = "/admitted", method = RequestMethod.GET)
 //  @ResponseBody

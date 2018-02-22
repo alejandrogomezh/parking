@@ -17,7 +17,7 @@ public class RegisterEntity implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne//(fetch = FetchType.LAZY)
 	@JoinColumn(name="vehicle")
 	private VehicleEntity vehicle;
 	private Date ingreso;

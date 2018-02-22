@@ -24,18 +24,37 @@
 			        <div class="answer"><span></span></div>
 			    </form>
 			</div>
-	        <div ng-controller='admittedCtrl'>
-	            <div ng-repeat='parked in parking'>
-	                <p>Vehiculos:</p>
-	                <div ng-repeat='album in parked.albums'>
-	                    <p style='text-indent: 20px'>
-	                        Album titled <b>{{ album.title }}</b> by
-	                                     <b>{{ album.parked }}</b> contains
-	                                     <b>{{ album.ntracks }}</b> tracks
-	                    </p>
-	                </div>
-	            </div>
-	        </div>
 		</div>
+			<a>TABLA</a>
+	        <div ng-controller='admittedCtrl' style="background: buttonhighlight; color: black;">
+				<table>
+					<tr>
+						<th>tipo</th>
+						<th>placa</th> 
+						<th>cilindraje</th>
+						<th>ingreso</th>
+					</tr>
+		            <tr ng-repeat="income in admittes">
+		                <td>{{ income.vehicle.tipo }}</td>
+		                <td>{{ income.vehicle.placa }}</td>
+		                <td>{{ income.vehicle.cilindraje }}</td>
+		                <td>{{ income.ingreso | date : format : timezone}}</td>
+		            </tr>
+				</table>
+
+
+		        <!-- 
+	            <p>Vehiculos:</p>
+	            <div ng-repeat='income in admittes'>
+                    <p style='text-indent: 20px'>
+                        tipo:    	<b>{{ income.vehicle.tipo }}</b>
+                        placa:   	<b>{{ income.vehicle.placa }}</b>
+                        cilindraje: <b>{{ income.vehicle.cilindraje }}</b>
+                        ingreso: 	<b>{{ income.ingreso | date : format : timezone}}</b>
+                    </p>
+	            </div>
+	             -->
+	        </div>
+
     </body>
 </html>

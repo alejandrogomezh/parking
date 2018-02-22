@@ -11,7 +11,7 @@ import co.ceiba.parking.persistent.entities.VehicleEntity;
 
 @Repository
 public interface RegisterRepository extends JpaRepository<RegisterEntity, Long>{
-	List<RegisterEntity> findByVehicleAndSalida(VehicleEntity vehicleEntity, Date salida);
+	RegisterEntity findByVehicleAndSalida(VehicleEntity vehicleEntity, Date salida);
 	List<RegisterEntity> findBySalidaOrderByVehicleTipo(Date salida);
 	int countByVehicleTipoAndSalida(String tipo, Date salida);	@SuppressWarnings("unchecked")
 	RegisterEntity save(RegisterEntity register);

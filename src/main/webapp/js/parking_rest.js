@@ -32,7 +32,7 @@ parkingApp.factory('admitted', function($resource) {
 });
 parkingApp.controller("admittedCtrl", function($scope, admitted) {
 	admitted.query(function(data) {
-	    $scope.admitted = data;
+	    $scope.admittes = data;
 	}, function(err) {
 		alert("Error occured: "+err.data.message);
 		console.log("Error occured: ", err);
