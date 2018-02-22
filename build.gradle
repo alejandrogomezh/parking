@@ -14,6 +14,7 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'war'
+apply plugin: 'jacoco'
 
 group = 'co.ceiba'
 version = '0.0.1-SNAPSHOT'
@@ -41,6 +42,9 @@ dependencies {
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	//testCompile('org.springframework.security:spring-security-test')
 	testCompile('com.h2database:h2')
+	testCompile('junit:junit:4.12')
+	testCompile('org.mockito:mockito-core:2.15.0')
+	testCompile('log4j:log4j:1.2.17')
 }
 
 def webappDir = "$projectDir/src/main/webapp"
@@ -50,4 +54,12 @@ sourceSets {
 			srcDirs = ["$webappDir/dist", "$projectDir/src/main/resources"]
 		}
 	}
+}
+
+test {
+	jacoco {
+		append = false
+		destinationFile = file("jacoco/jacocoTest.exec")
+	}
+	reports.junitXml.destination =  file("jacoco/test-results")
 }
