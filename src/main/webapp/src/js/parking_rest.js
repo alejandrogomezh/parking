@@ -27,14 +27,24 @@ parkingApp.controller('parkingCtrl', function($scope, parking) {
 	};
 });
 
-parkingApp.factory('admitted', function($resource) {
+parkingApp.factory('admitted', function($resource,$timeout) {
     return $resource('/admitted');
 });
-parkingApp.controller("admittedCtrl", function($scope, admitted) {
-	admitted.query(function(data) {
-	    $scope.admittes = data;
-	}, function(err) {
-		alert("Error occured: "+err.data.message);
-		console.log("Error occured: ", err);
+parkingApp.controller("admittedCtrl", function($scope, admitted, $interval) {
+	var load = 	function(){
+		admitted.query(function(data) {
+		    $scope.admittes = data;
+		}, function(err) {
+			alert("Error occured: "+err.data.message);
+			console.log("Error occured: ", err);
+		});
+	};
+	var theInterval = $interval(function(){
+		load();
+	}.bind(this), 10000);    
+	
+	$scope.$on('$destroy', function () {
+		$interval.cancel(theInterval)
 	});
+	load();
 });

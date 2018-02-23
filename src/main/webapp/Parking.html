@@ -6,11 +6,30 @@
         <script src='http://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular.js'></script>
         <script src='http://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular-resource.js'></script>
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-		<link type="text/css" rel="stylesheet" href="./css/parking.css">		
-		<script src='./js/parking_rest.js'></script>
+		
+		<link rel="stylesheet" type="text/css" href="./src/vendor/bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="./src/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" type="text/css" href="./src/vendor/animate/animate.css">
+		<link rel="stylesheet" type="text/css" href="./src/vendor/select2/select2.min.css">
+		<link rel="stylesheet" type="text/css" href="./src/vendor/perfect-scrollbar/perfect-scrollbar.css">
+		
+		<link rel="stylesheet" type="text/css" href="./src/css/util.css">
+		<link rel="stylesheet" type="text/css" href="./src/css/main.table.css">
+		
+		<script src="./src/vendor/bootstrap/js/popper.min.js"></script>
+		<script src="./src/vendor/bootstrap/js/bootstrap.min.js"></script>
+		<script src="./src/vendor/select2/select2.full.min.js"></script>
+		
+		<script src="./src/js/main.table.js"></script>
+		
+		<link type="text/css" rel="stylesheet" href="./src/css/parking.css">	
+		<script src='./src/js/parking_rest.js'></script>
     </head>
     <body ng-app='ParkingApp'>
-      	<div class="page-container">
+		<div class="limiter">		
+			<div class="container-table100">
+			
+      	<div>
 			<div class="form-container">
 			    <h1>Parqueadero</h1>
 			    <form ng-controller="parkingCtrl">
@@ -25,36 +44,27 @@
 			    </form>
 			</div>
 		</div>
-			<a>TABLA</a>
-	        <div ng-controller='admittedCtrl' style="background: buttonhighlight; color: black;">
-				<table>
-					<tr>
-						<th>tipo</th>
-						<th>placa</th> 
-						<th>cilindraje</th>
-						<th>ingreso</th>
-					</tr>
-		            <tr ng-repeat="income in admittes">
-		                <td>{{ income.vehicle.tipo }}</td>
-		                <td>{{ income.vehicle.placa }}</td>
-		                <td>{{ income.vehicle.cilindraje }}</td>
-		                <td>{{ income.ingreso | date : format : timezone}}</td>
-		            </tr>
-				</table>
 
-
-		        <!-- 
-	            <p>Vehiculos:</p>
-	            <div ng-repeat='income in admittes'>
-                    <p style='text-indent: 20px'>
-                        tipo:    	<b>{{ income.vehicle.tipo }}</b>
-                        placa:   	<b>{{ income.vehicle.placa }}</b>
-                        cilindraje: <b>{{ income.vehicle.cilindraje }}</b>
-                        ingreso: 	<b>{{ income.ingreso | date : format : timezone}}</b>
-                    </p>
-	            </div>
-	             -->
-	        </div>
-
+			
+				<div class="wrap-table100">
+					<div class="table100 ver1 -m-b-110" ng-controller='admittedCtrl'>
+						<table data-vertable="ver1">
+							<tr class="row100 head">
+								<th class="column100 column1" data-column="column1">tipo</th>
+								<th class="column100 column2" data-column="column2">placa</th> 
+								<th class="column100 column3" data-column="column3">cilindraje</th>
+								<th class="column100 column4" data-column="column4">ingreso</th>
+							</tr>
+				            <tr class="row100" ng-repeat="income in admittes">
+				                <td class="column100 column1" data-column="column1">{{ income.vehicle.tipo }}</td>
+				                <td class="column100 column2" data-column="column2">{{ income.vehicle.placa }}</td>
+				                <td class="column100 column3" data-column="column3">{{ income.vehicle.cilindraje }}</td>
+				                <td class="column100 column4" data-column="column4">{{ income.ingreso | date : format : timezone}}</td>
+				            </tr>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
     </body>
 </html>
