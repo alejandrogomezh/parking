@@ -37,9 +37,11 @@ public class RegisterBuilder {
 	}
 	
 	public static RegisterEntity toEntity(Register register) {
-		if(register.getSelfEntity() != null) return register.getSelfEntity();
+		RegisterEntity registerEntity = register.getSelfEntity();
+		if(register.getSelfEntity() == null) {
+			registerEntity = new RegisterEntity();
+		}
 		VehicleEntity vehicleEntity = register.getVehicle().getSelfEntity();
-		RegisterEntity registerEntity = new RegisterEntity();
 		registerEntity.setVehicle(vehicleEntity);
 		registerEntity.setIngreso(register.getIngreso());
 		registerEntity.setSalida(register.getSalida());

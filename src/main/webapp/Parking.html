@@ -26,45 +26,64 @@
 		<script src='./src/js/parking_rest.js'></script>
     </head>
     <body ng-app='ParkingApp'>
-		<div class="limiter">		
-			<div class="container-table100">
-			
-      	<div>
+		<div class="container-all">
+		
 			<div class="form-container">
 			    <h1>Parqueadero</h1>
-			    <form ng-controller="parkingCtrl">
+			    <form ng-controller="inputCtrl">
 			    	<select ng-model="tipo">
 			    		<option value="moto">Moto</option>
 			    		<option value="carro">Carro</option>
 			    	</select>
 			        <input ng-model="placa" type="text" name="placa" placeholder="placa">
 			        <input ng-model="cilindraje" type="text" name="cilindraje" placeholder="cilindraje">
-			        <button ng-click="submit()">Ingresar</button>
+			        <button class="button-input-car" ng-click="buttonInputCar()">Ingresar</button>
 			        <div class="answer"><span></span></div>
 			    </form>
 			</div>
-		</div>
-
 			
+			<div class="container-table100" ng-controller='registerFilterCtrl'>
+	
+				<form class="radio-container">
+					<div class="radio radio-info">
+					  <input type="radio" ng-model="filterType" id="Radios1" ng-change='newFilter(filterType)' value="All">
+					  <label>All</label>
+					</div>
+					<div class="radio radio-info">
+						<input type="radio" ng-model="filterType" id="Radios2" ng-change='newFilter(filterType)' value="In">
+						<label>In</label>
+					</div>
+					<div class="radio radio-info">
+						<input type="radio" ng-model="filterType" id="Radios3" ng-change='newFilter(filterType)' value="Out">
+						<label>Out</label>
+					</div>
+				</form>
+				
 				<div class="wrap-table100">
-					<div class="table100 ver1 -m-b-110" ng-controller='admittedCtrl'>
-						<table data-vertable="ver1">
+					<div class="table100 ver1 -m-b-110" >
+						<table ng-table="vm.tableAdmittes" data-vertable="ver1">
 							<tr class="row100 head">
 								<th class="column100 column1" data-column="column1">tipo</th>
 								<th class="column100 column2" data-column="column2">placa</th> 
 								<th class="column100 column3" data-column="column3">cilindraje</th>
 								<th class="column100 column4" data-column="column4">ingreso</th>
+								<th class="column100 column4" data-column="column4">salida</th>
+								<th class="column100 column5" data-column="column5"></th>
 							</tr>
-				            <tr class="row100" ng-repeat="income in admittes">
+				            <tr class="row100" ng-repeat="income in $admittes">
 				                <td class="column100 column1" data-column="column1">{{ income.vehicle.tipo }}</td>
 				                <td class="column100 column2" data-column="column2">{{ income.vehicle.placa }}</td>
 				                <td class="column100 column3" data-column="column3">{{ income.vehicle.cilindraje }}</td>
-				                <td class="column100 column4" data-column="column4">{{ income.ingreso | date : format : timezone}}</td>
+				                <td class="column100 column4" data-column="column4">{{ income.ingreso | date : 'dd/MMM/yyyy H:mm'}}</td>
+				                <td class="column100 column4" data-column="column4">{{ income.salida | date : 'dd/MMM/yyyy H:mm'}}</td>
+				                <td class="column100 column5" data-column="column5"><button ng-controller="outputCtrl" class="button-output-car" ng-click="buttonOutputCar(income.vehicle.placa)">SALIR</button></td>
 				            </tr>
 						</table>
 					</div>
 				</div>
+				
 			</div>
+			
 		</div>
     </body>
 </html>

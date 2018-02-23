@@ -10,14 +10,18 @@ public class Vehicle implements java.io.Serializable{
 	private String placa;
 	private int cilindraje;
 	
+	public Vehicle() {
+		
+	}
+	
 	public Vehicle(String tipo, String placa, int cilindraje) {
 		this.tipo = tipo;
-		this.placa = placa;
+		this.placa = placa.toUpperCase();
 		this.cilindraje = cilindraje;
 	}
 	
 	public String getPlaca() {
-		return placa;
+		return placa.toUpperCase();
 	}
 	
 	public int getCilindraje() {

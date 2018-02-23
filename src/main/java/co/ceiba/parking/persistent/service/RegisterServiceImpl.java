@@ -28,18 +28,32 @@ public class RegisterServiceImpl implements RegisterService{
 	}
 	
 	@Override
+	public List<Register> allRegisters() {
+		return RegisterBuilder.toDomain(
+					registerRepository.findAll()
+				);
+	}
+
+	@Override
+	public List<Register> vehiclesInParking() {
+		return RegisterBuilder.toDomain(
+					registerRepository.findBySalidaOrderByIngresoDesc(null)
+				);
+	}
+
+	@Override
+	public List<Register> vehiclesOutParking() {
+		return RegisterBuilder.toDomain(
+					registerRepository.findBySalidaNotNullOrderByIngresoDesc()
+				);
+	}
+
+	@Override
 	public Register findByVehicleActive(Vehicle vehicle) {
 		VehicleEntity vehicleEntity = VehicleBuilder.toEntity(vehicle);
 		RegisterEntity registerEntity;
 		registerEntity = registerRepository.findByVehicleAndSalida(vehicleEntity, null);
 		return RegisterBuilder.toDomain(registerEntity);
-	}
-
-	@Override
-	public List<Register> allVehiclesActives() {
-		List<RegisterEntity> registerEntities;
-		registerEntities = registerRepository.findBySalidaOrderByVehicleTipo(null);
-		return RegisterBuilder.toDomain(registerEntities);
 	}
 
 	@Override

@@ -30,9 +30,11 @@ public class InvoiceBuilder {
 	}
 	
 	public static InvoiceEntity toEntity(Invoice invoice) {
-		if(invoice.getSelfEntity() != null) return invoice.getSelfEntity();
+		InvoiceEntity invoiceEntity = invoice.getSelfEntity();
 		RegisterEntity register = invoice.getRegister().getSelfEntity();
-		InvoiceEntity invoiceEntity = new InvoiceEntity();
+		if(invoice.getSelfEntity() == null) {
+			invoiceEntity = new InvoiceEntity();
+		}
 		invoiceEntity.setRegister(register);
 		invoiceEntity.setDias(invoice.getDias());
 		invoiceEntity.setHoras(invoice.getHoras());

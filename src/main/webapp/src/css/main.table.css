@@ -87,39 +87,44 @@ iframe {
 }
 
 
+.container{
+	-background: blue;
+}
+
 
 /*//////////////////////////////////////////////////////////////////
 [ Table ]*/
 
 .container-table100 {
-  min-width: 100vh;
-  min-height: 100vh;
-  background: #d1d1d1;
+	width: 100vw;
+	height: auto;
 
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-wrap: wrap; /* Safari 6.1+ */
-  -webkit-flex-direction: row;
-  flex-flow: row wrap;
-  align-items: baseline;
+	background: #d1d1d1;
   
-  justify-content: center;
-  padding: 33px 30px;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: flex;
+	
+	-webkit-flex-wrap: wrap; /* Safari 6.1+ */
+	-webkit-flex-direction: column;
+	flex-flow: column wrap;
+	align-items: center;
+	
+	
 }
 
 .wrap-table100 {
-  max-width: 200vh;
-  max-height: 58vh;
-  overflow: auto;
+	max-width: 50vw;
+	height: 50vh;
+	overflow: auto; 
+	margin-bottom: 10vh;
 }
 
 /*//////////////////////////////////////////////////////////////////
 [ Table ]*/
 table {
-  width: auto;
   background-color: #fff;
   margin-left: 5px;
 }
@@ -127,6 +132,7 @@ table {
 th, td {
   font-weight: unset;
   padding-right: 10px;
+  text-align: center;
 }
 
 .column100 {

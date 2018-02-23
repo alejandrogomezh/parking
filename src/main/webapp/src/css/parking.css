@@ -6,10 +6,15 @@ body {
     color: #fff;
 }
 
+.container-all{
+	width: 100vw;
+	height: 100vh;
+}
+
 .form-container{
     border: solid;
     border-color: gray;
-    min-width: 200px;
+    max-width: 30vw;
     padding: 20px 20px 50px 20px;
     margin: auto;
     background: gray;
@@ -19,35 +24,63 @@ body {
     border: 1px solid white;
 }
 
+.radio-container{
+    border: solid;
+    border-color: gray;
+   	width: 30vw;
+   	height: 10vh;
+    padding: 20px 20px 50px 20px;
+    margin: auto;
+    background: gray;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    border-radius: 6px;
+    border: 1px solid white;
+    
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-flex-wrap: wrap; /* Safari 6.1+ */
+	-webkit-flex-direction: row;
+	flex-flow: row wrap;
+	align-items: center;
+}
+
+.radio-container input{
+	width: 3vw;
+	height: 3vh;
+}
+
 h1 {
-    font-size: 30px;
+    font-size: 2.5vw;
     text-shadow: 0 1px 4px rgba(0,0,0,.2);
     margin: auto;
 }
 
 form {
     position: relative;
-    width: 50vh;
     margin: auto;
     text-align: center;
     
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-wrap: wrap; /* Safari 6.1+ */
-  -webkit-flex-direction: row;
-  flex-flow: column wrap;
-  align-items: center;
-  
-  justify-content: center;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-flex-wrap: wrap; /* Safari 6.1+ */
+	-webkit-flex-direction: row;
+	flex-flow: column wrap;
+	align-items: baseline;
+	
+	justify-content: center;
     
 }
 
 input, select {
-    width: 45vh;
-    height: 42px;
+    width: 25vw;
+    height: 6vh;
     margin-top: 25px;
     padding: 0 15px;
     background: #2d2d2d; /* browsers that don't support rgba */
@@ -87,10 +120,19 @@ input:focus {
         0 2px 7px 0 rgba(0,0,0,.2);
 }
 
+.button-input-car{
+	width: 27vw;
+    height: 6vh;
+}
+
+.button-output-car{
+	width: 5vw;
+    height: 5vh;
+    margin: auto;
+}
+
 button {
     cursor: pointer;
-    width: 50vh;
-    height: 44px;
     margin-top: 25px;
     padding: 0;
     background: #ef4300;

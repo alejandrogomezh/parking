@@ -1,6 +1,7 @@
 package co.ceiba.parking.dominio.unitaria;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -50,7 +51,7 @@ public class IngresoTest {
 		String msg;
 		// act
 		try {
-			msg = vigilant.ingreso(moto.getTipo(), moto.getPlaca(), moto.getCilindraje());
+			msg = vigilant.ingreso(moto);
 		} catch (ParkingException e) {
 			msg = e.getMessage();
 		}
@@ -80,7 +81,7 @@ public class IngresoTest {
 		String msg;
 		// act
 		try {
-			msg = vigilant.ingreso(moto.getTipo(), moto.getPlaca(), moto.getCilindraje());
+			msg = vigilant.ingreso(moto);
 		} catch (ParkingException e) {
 			msg = e.getMessage();
 		}
@@ -110,8 +111,10 @@ public class IngresoTest {
 		String msg;
 		// act
 		try {
-			msg = vigilant.ingreso(moto.getTipo(), moto.getPlaca(), moto.getCilindraje());
+			msg = vigilant.ingreso(moto);
+			fail();
 		} catch (ParkingException e) {
+			
 			msg = e.getMessage();
 		}
 		// assert	
@@ -140,7 +143,7 @@ public class IngresoTest {
 		String msg;
 		// act
 		try {
-			msg = vigilant.ingreso(moto.getTipo(), moto.getPlaca(), moto.getCilindraje());
+			msg = vigilant.ingreso(moto);
 		} catch (ParkingException e) {
 			msg = e.getMessage();
 		}
@@ -173,7 +176,7 @@ public class IngresoTest {
 		String msg;
 		// act
 		try {
-			msg = vigilant.ingreso(moto.getTipo(), moto.getPlaca(), moto.getCilindraje());
+			msg = vigilant.ingreso(moto);
 		} catch (ParkingException e) {
 			msg = e.getMessage();
 		}
@@ -203,7 +206,7 @@ public class IngresoTest {
 		String msg;
 		// act
 		try {
-			msg = vigilant.ingreso(moto.getTipo(), moto.getPlaca(), moto.getCilindraje());
+			msg = vigilant.ingreso(moto);
 		} catch (ParkingException e) {
 			msg = e.getMessage();
 		}
@@ -233,7 +236,7 @@ public class IngresoTest {
 		String msg;
 		// act
 		try {
-			msg = vigilant.ingreso(carro.getTipo(), carro.getPlaca(), carro.getCilindraje());
+			msg = vigilant.ingreso(carro);
 		} catch (ParkingException e) {
 			msg = e.getMessage();
 		}

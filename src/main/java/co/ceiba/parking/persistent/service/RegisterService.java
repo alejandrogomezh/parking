@@ -6,8 +6,11 @@ import co.ceiba.parking.domain.objects.Register;
 import co.ceiba.parking.domain.objects.Vehicle;
 
 public interface RegisterService{
+	List<Register> allRegisters();
+	List<Register> vehiclesInParking();
+	List<Register> vehiclesOutParking();
+	
 	Register findByVehicleActive(Vehicle vehicle);
-	List<Register> allVehiclesActives();
 	int countByTypeVehicle(Vehicle vehicle);
 	Register save(Register register);
 }
