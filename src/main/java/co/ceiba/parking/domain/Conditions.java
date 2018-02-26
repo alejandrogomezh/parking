@@ -1,6 +1,5 @@
 package co.ceiba.parking.domain;
 
-import co.ceiba.parking.domain.objects.Carro;
 import co.ceiba.parking.domain.objects.Moto;
 import co.ceiba.parking.domain.objects.Vehicle;
 
@@ -21,7 +20,6 @@ public class Conditions {
 	private static final Conditions carroCondiciones;
 	private static final Conditions motoCondiciones;
 
-	private String tipo;
 	private int horasDiaMinimo;
 	private int cilindrajeMaxSinRecargo;
 	private int cupo;
@@ -31,7 +29,6 @@ public class Conditions {
 	
 	static {
 		carroCondiciones = new Conditions(
-				Carro.TIPO,
 				HORAS_DIA_MINIMO,
 				CARRO_CILINDRAJE_MAX_SIN_RECARGO,
 				CARRO_CUPO,
@@ -41,7 +38,6 @@ public class Conditions {
 				);
 		
 		motoCondiciones = new Conditions(
-				Moto.TIPO,
 				HORAS_DIA_MINIMO,
 				MOTO_CILINDRAJE_RECARGO,
 				MOTO_CUPO,
@@ -51,10 +47,8 @@ public class Conditions {
 				);
 	}
 	
-	public Conditions(String tipo, int horasDiaMinimo, int cilindrajeMaxSinRecargo, int cupo, double valorHora, double valorDia,
+	public Conditions(int horasDiaMinimo, int cilindrajeMaxSinRecargo, int cupo, double valorHora, double valorDia,
 			double valorRecargo) {
-		super();
-		this.tipo = tipo;
 		this.horasDiaMinimo = horasDiaMinimo;
 		this.cilindrajeMaxSinRecargo = cilindrajeMaxSinRecargo;
 		this.cupo = cupo;
