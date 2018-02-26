@@ -6,7 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import co.ceiba.parking.persistent.entities.VehicleEntity;
-import java.lang.String;
 
 @Repository
 public interface VehicleRepository extends JpaRepository<VehicleEntity, Long>{
