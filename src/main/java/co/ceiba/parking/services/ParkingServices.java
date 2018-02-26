@@ -6,16 +6,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ParkingServices implements DateServiceInterface {
-	private DateServiceInterface dateServiceInterface;
+public class ParkingServices implements ParkingServicesInterface {
+	private ParkingServicesInterface parkingServicesInterface;
 	
 	@Autowired
 	public ParkingServices(DateService parkingService) {
-		this.dateServiceInterface = parkingService;
+		this.parkingServicesInterface = parkingService;
 	}
 	
 	public Date dateNow() {
-		return dateServiceInterface.dateNow();
+		return parkingServicesInterface.dateNow();
 	}
 	
 }

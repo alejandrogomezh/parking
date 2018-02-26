@@ -12,25 +12,25 @@ import co.ceiba.parking.persistent.services.InvoiceService;
 import co.ceiba.parking.persistent.services.RegisterService;
 import co.ceiba.parking.persistent.services.ServicesPersistent;
 import co.ceiba.parking.persistent.services.VehicleService;
-import co.ceiba.parking.services.DateServiceInterface;
+import co.ceiba.parking.services.ParkingServicesInterface;
 
 public class Vigilant {
 	private VehicleService vehicleService;
 	private RegisterService registerService;
 	private InvoiceService invoiceService;
 	
-	private DateServiceInterface dateServiceInterfaces;
+	private ParkingServicesInterface parkingServicesInterfaces;
 	
-	public Vigilant(DateServiceInterface dateServiceInterfaces, ServicesPersistent servicesPersistent) {
+	public Vigilant(ParkingServicesInterface parkingServicesInterfaces, ServicesPersistent servicesPersistent) {
 		vehicleService = servicesPersistent.getVehicleService();
 		invoiceService = servicesPersistent.getInvoiceService();
 		registerService = servicesPersistent.getRegisterService();
 		
-		this.dateServiceInterfaces = dateServiceInterfaces;
+		this.parkingServicesInterfaces = parkingServicesInterfaces;
 	}
 	
 	public String input(Vehicle vehicle) {
-		Date ingreso = dateServiceInterfaces.dateNow();
+		Date ingreso = parkingServicesInterfaces.dateNow();
 		
 		if(vehicle.getPlaca().isEmpty()) {
 			throw new ParkingException(Messages.DEBE_INGRESAR_PLACA);
@@ -62,7 +62,7 @@ public class Vigilant {
 	}
 	
 	public Invoice output(Vehicle vehicle) {
-		Date salida = dateServiceInterfaces.dateNow();
+		Date salida = parkingServicesInterfaces.dateNow();
 
 		vehicle = getVehicle(vehicle.getPlaca());
 		

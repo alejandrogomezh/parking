@@ -5,7 +5,7 @@ import java.util.Date;
 import org.springframework.stereotype.Service;
 
 @Service
-public class DateService implements DateServiceInterface{
+public class DateService implements ParkingServicesInterface{
 	public Date dateNow() {
 		return new Date();
 	}
