@@ -47,14 +47,5 @@ public class RegisterBuilder {
 		registerEntity.setSalida(register.getSalida());
 		return registerEntity;
 	}
-	
-	public static List<RegisterEntity> toEntity(List<Register> registers) {
-		List<RegisterEntity> registerEntities = new ArrayList<>();
-		for(Register register : registers) {
-			registerEntities.add(toEntity(register));
-		}
-		return registerEntities;
-	}
-	
-	
+
 }

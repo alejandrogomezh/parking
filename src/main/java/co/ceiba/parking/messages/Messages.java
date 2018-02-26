@@ -15,6 +15,10 @@ public class Messages {
 
 	private String msg;
 
+	public Messages() {
+		
+	}
+	
 	public Messages(String msg) {
 		this.msg = msg;
 	}
@@ -27,9 +31,4 @@ public class Messages {
 		this.msg = msg;
 	}
 
-	@Override
-	public String toString() {
-		return "Messages [msg=" + msg + "]";
-	}
-	
 }

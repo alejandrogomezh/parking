@@ -1,6 +1,6 @@
 CREATE TABLE vehicle (
   id bigint(20) NOT NULL AUTO_INCREMENT,
-  cilindraje int(11) NOT NULL,
+  cilindraje int(11) DEFAULT NULL,
   placa varchar(255) DEFAULT NULL,
   tipo varchar(255) DEFAULT NULL,
   PRIMARY KEY (id)

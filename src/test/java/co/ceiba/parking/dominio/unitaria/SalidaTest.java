@@ -14,7 +14,7 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
-import co.ceiba.parking.services.ParkingService;
+import co.ceiba.parking.services.DateServiceInterface;
 import co.ceiba.parking.domain.Vigilant;
 import co.ceiba.parking.domain.excepcion.ParkingException;
 import co.ceiba.parking.domain.objects.Invoice;
@@ -32,7 +32,7 @@ import testutilidades.FechaTest;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class SalidaTest {
 	
-	private ParkingService parkingService;
+	private DateServiceInterface dateServiceInterface;
 	
 	private ServicesPersistent servicesPersistent;
 	private InvoiceService invoiceService;
@@ -42,7 +42,7 @@ public class SalidaTest {
 	
 	@Before
 	public void setup() {
-		parkingService = mock(ParkingService.class);
+		dateServiceInterface = mock(DateServiceInterface.class);
 		servicesPersistent = mock(ServicesPersistent.class);
 		invoiceService = mock(InvoiceService.class);
 		registerService = mock(RegisterService.class);
@@ -57,7 +57,7 @@ public class SalidaTest {
 		when(servicesPersistent.getRegisterService()).thenReturn(registerService);
 		when(servicesPersistent.getVehicleService()).thenReturn(vehicleService);
 
-		Vigilant vigilant = new Vigilant(parkingService, servicesPersistent);
+		Vigilant vigilant = new Vigilant(dateServiceInterface, servicesPersistent);
 		
 		// act
 		try {
@@ -81,7 +81,7 @@ public class SalidaTest {
 		when(vehicleService.findByPlaca(moto.getPlaca())).thenReturn(moto);
 		
 
-		Vigilant vigilant = new Vigilant(parkingService, servicesPersistent);
+		Vigilant vigilant = new Vigilant(dateServiceInterface, servicesPersistent);
 		
 		// act
 		try {
@@ -110,9 +110,9 @@ public class SalidaTest {
 		when(vehicleService.findByPlaca(moto.getPlaca())).thenReturn(moto);
 		when(registerService.findByVehicleActive(moto)).thenReturn(register);
 
-		when(parkingService.dateNow()).thenReturn(salida);
+		when(dateServiceInterface.dateNow()).thenReturn(salida);
 		
-		Vigilant vigilant = new Vigilant(parkingService, servicesPersistent);
+		Vigilant vigilant = new Vigilant(dateServiceInterface, servicesPersistent);
 		// act
 		Invoice invoice = vigilant.output(moto);
 		// assert	

@@ -49,7 +49,7 @@ server:
 spring:
   profiles: test
   datasource:
-    url: jdbc:h2:~/parking;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    url: jdbc:h2:~/parking2;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
     platform: h2
     username: alejandro.gomez
     password:

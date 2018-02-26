@@ -22,14 +22,14 @@ import co.ceiba.parking.persistent.services.RegisterService;
 import co.ceiba.parking.persistent.services.ServicesPersistent;
 import co.ceiba.parking.persistent.services.VehicleService;
 
-import co.ceiba.parking.services.ParkingService;
+import co.ceiba.parking.services.DateServiceInterface;
 import testdatabuilder.CarroTestDataBuilder;
 import testdatabuilder.MotoTestDataBuilder;
 import testutilidades.FechaTest;
 
 public class IngresoTest {
 
-	private ParkingService parkingService;
+	private DateServiceInterface dateServiceInterface;
 	
 	private ServicesPersistent servicesPersistent;
 	private RegisterService registerService;
@@ -38,7 +38,7 @@ public class IngresoTest {
 	
 	@Before
 	public void setup() {
-		parkingService = mock(ParkingService.class);
+		dateServiceInterface = mock(DateServiceInterface.class);
 		servicesPersistent = mock(ServicesPersistent.class);
 		registerService = mock(RegisterService.class);
 		vehicleService = mock(VehicleService.class);
@@ -55,8 +55,8 @@ public class IngresoTest {
 
 		when(registerService.countByTypeVehicle(moto)).thenReturn(motoCondiciones.getCupo()-1);
 		
-		when(parkingService.dateNow()).thenReturn(ingreso);
-		Vigilant vigilant = new Vigilant(parkingService, servicesPersistent);
+		when(dateServiceInterface.dateNow()).thenReturn(ingreso);
+		Vigilant vigilant = new Vigilant(dateServiceInterface, servicesPersistent);
 		
 		String msg;
 		// act
@@ -80,8 +80,8 @@ public class IngresoTest {
 
 		when(registerService.countByTypeVehicle(moto)).thenReturn(motoCondiciones.getCupo()-1);
 		
-		when(parkingService.dateNow()).thenReturn(ingreso);
-		Vigilant vigilant = new Vigilant(parkingService, servicesPersistent);
+		when(dateServiceInterface.dateNow()).thenReturn(ingreso);
+		Vigilant vigilant = new Vigilant(dateServiceInterface, servicesPersistent);
 
 		String msg;
 		// act
@@ -105,8 +105,8 @@ public class IngresoTest {
 
 		when(registerService.countByTypeVehicle(moto)).thenReturn(motoCondiciones.getCupo()-1);
 
-		when(parkingService.dateNow()).thenReturn(ingreso);
-		Vigilant vigilant = new Vigilant(parkingService, servicesPersistent);
+		when(dateServiceInterface.dateNow()).thenReturn(ingreso);
+		Vigilant vigilant = new Vigilant(dateServiceInterface, servicesPersistent);
 
 		String msg;
 		// act
@@ -132,8 +132,8 @@ public class IngresoTest {
 
 		when(registerService.countByTypeVehicle(moto)).thenReturn(motoCondiciones.getCupo()-1);
 
-		when(parkingService.dateNow()).thenReturn(ingreso);
-		Vigilant vigilant = new Vigilant(parkingService, servicesPersistent);
+		when(dateServiceInterface.dateNow()).thenReturn(ingreso);
+		Vigilant vigilant = new Vigilant(dateServiceInterface, servicesPersistent);
 
 		String msg;
 		// act
@@ -160,8 +160,8 @@ public class IngresoTest {
 		when(registerService.countByTypeVehicle(any(Moto.class))).thenReturn(motoCondiciones.getCupo()-1);
 		when(registerService.findByVehicleActive(moto)).thenReturn(registryAdmitted);
 
-		when(parkingService.dateNow()).thenReturn(ingreso);
-		Vigilant vigilant = new Vigilant(parkingService, servicesPersistent);
+		when(dateServiceInterface.dateNow()).thenReturn(ingreso);
+		Vigilant vigilant = new Vigilant(dateServiceInterface, servicesPersistent);
 
 		String msg;
 		// act
@@ -185,9 +185,9 @@ public class IngresoTest {
 
 		when(registerService.countByTypeVehicle(any(Moto.class))).thenReturn(motoCondiciones.getCupo());
 
-		when(parkingService.dateNow()).thenReturn(ingreso);
+		when(dateServiceInterface.dateNow()).thenReturn(ingreso);
 		
-		Vigilant vigilant = new Vigilant(parkingService, servicesPersistent);
+		Vigilant vigilant = new Vigilant(dateServiceInterface, servicesPersistent);
 
 		String msg;
 		// act
@@ -210,9 +210,9 @@ public class IngresoTest {
 		when(servicesPersistent.getVehicleService()).thenReturn(vehicleService);
 
 		when(registerService.countByTypeVehicle(any(Carro.class))).thenReturn(carroCondiciones.getCupo());
-		when(parkingService.dateNow()).thenReturn(ingreso);
+		when(dateServiceInterface.dateNow()).thenReturn(ingreso);
 
-		Vigilant vigilant = new Vigilant(parkingService, servicesPersistent);
+		Vigilant vigilant = new Vigilant(dateServiceInterface, servicesPersistent);
 
 		String msg;
 		// act

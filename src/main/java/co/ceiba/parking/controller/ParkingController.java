@@ -28,7 +28,7 @@ import co.ceiba.parking.persistent.services.RegisterServiceImpl;
 import co.ceiba.parking.persistent.services.ServicesPersistent;
 import co.ceiba.parking.persistent.services.ServicesPersistentImpl;
 import co.ceiba.parking.persistent.services.VehicleServiceImpl;
-import co.ceiba.parking.service.impl.ParkingServicesInjection;
+import co.ceiba.parking.services.ParkingServices;
 
 @RestController
 public class ParkingController {
@@ -36,7 +36,7 @@ public class ParkingController {
 	private ServicesPersistent servicesPersistent;
   
 	@Autowired
-	private ParkingServicesInjection parkingServicesInjection;
+	private ParkingServices parkingServices;
   @Autowired
   private  InvoiceRepository invoiceRepository;
   @Autowired
@@ -96,7 +96,7 @@ public class ParkingController {
   }
 
   protected Vigilant getVigilant() {
-  	return new Vigilant(parkingServicesInjection, servicesPersistent);
+  	return new Vigilant(parkingServices, servicesPersistent);
   }
   
 }
