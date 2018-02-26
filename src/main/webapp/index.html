@@ -31,13 +31,13 @@
 			<div class="form-container">
 			    <h1>Parqueadero</h1>
 			    <form ng-controller="inputCtrl">
-			    	<select class="form-control" ng-model="tipo">
+			    	<select id="inputVehicle" class="form-control" ng-model="tipo">
 			    		<option value="moto">Moto</option>
 			    		<option value="carro">Carro</option>
 			    	</select>
-			        <input class="form-control" ng-model="placa" type="text" name="placa" placeholder="placa">
-			        <input class="form-control" ng-model="cilindraje" type="text" name="cilindraje" placeholder="cilindraje">
-			        <button class="button-input-car" ng-click="buttonInputCar()">Ingresar</button>
+			        <input id="inputPlate" class="form-control" ng-model="placa" type="text" name="placa" placeholder="placa">
+			        <input id="inputDisplacement" class="form-control" ng-model="cilindraje" ng-disabled="tipo == 'carro'" type="text" name="cilindraje" placeholder="cilindraje">
+			        <button id="inputSubmit" class="button-input-car" ng-click="buttonInputCar()">Ingresar</button>
 			    </form>
 			</div>
 			

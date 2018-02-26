@@ -23,6 +23,7 @@ parkingApp.controller('inputCtrl', function($scope, input) {
 			};
 		input.save(data, function(data) {
 			$scope.data = data;
+			global.filter.load();
 			alert(data.msg);
 		}, function(err) {
 			console.log("Error occured: ", err);
@@ -53,9 +54,9 @@ parkingApp.controller('outputCtrl', function($scope, output) {
 			$scope.data = data;
 			global.filter.load();
 			if(data.msg){
-				alert(data);
+				alert(data.msg);
 			}else{
-				//alert(data.);
+				alert("Valor Total: "+data.valorTotal);
 			}
 			
 		}, function(err) {
