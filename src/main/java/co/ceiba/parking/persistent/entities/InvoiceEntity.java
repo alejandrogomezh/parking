@@ -3,7 +3,6 @@ package co.ceiba.parking.persistent.entities;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -17,7 +16,7 @@ public class InvoiceEntity implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	@ManyToOne//(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name="register")
 	private RegisterEntity register;
 	private int dias;
@@ -74,12 +73,6 @@ public class InvoiceEntity implements Serializable {
 	}
 	public void setValorTotal(double valorTotal) {
 		this.valorTotal = valorTotal;
-	}
-	@Override
-	public String toString() {
-		return "InvoiceEntity [id=" + id + ", register=" + register + ", dias=" + dias + ", horas=" + horas + ", valorDias="
-				+ valorDias + ", valorHoras=" + valorHoras + ", valorRecargo=" + valorRecargo + ", valorTotal=" + valorTotal
-				+ "]";
 	}
 	
 }

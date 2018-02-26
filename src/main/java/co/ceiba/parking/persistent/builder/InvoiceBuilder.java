@@ -30,8 +30,8 @@ public class InvoiceBuilder {
 	}
 	
 	public static InvoiceEntity toEntity(Invoice invoice) {
-		InvoiceEntity invoiceEntity = invoice.getSelfEntity();
-		RegisterEntity register = invoice.getRegister().getSelfEntity();
+		InvoiceEntity invoiceEntity = (InvoiceEntity)invoice.getSelfEntity();
+		RegisterEntity register = (RegisterEntity)invoice.getRegister().getSelfEntity();
 		if(invoice.getSelfEntity() == null) {
 			invoiceEntity = new InvoiceEntity();
 		}

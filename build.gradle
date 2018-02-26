@@ -16,46 +16,33 @@ apply plugin: 'org.springframework.boot'
 apply plugin: 'war'
 apply plugin: 'jacoco'
 
-group = 'co.ceiba'
-version = '0.0.1-SNAPSHOT'
-sourceCompatibility = 1.8
+group = appGroup
+version = appVersion
+sourceCompatibility = appSourceCompatibility
+targetCompatibility = appTargetCompatibility
+
+jar {
+    baseName = appName
+    version =  appVersion
+    manifest {
+        attributes 'Implementation-Title': appName,
+                   'Implementation-Version': appVersion
+    }
+}
 
 repositories {
 	mavenCentral()
 }
 
-/*
-configurations {
-	providedRuntime
-}
-*/
-
 dependencies {
-	compile('org.projectlombok:lombok:1.16.20')
 	compile('org.springframework.boot:spring-boot-starter-data-jpa')
 	compile('org.springframework.boot:spring-boot-starter-jersey')
-	//compile('org.springframework.boot:spring-boot-starter-security')
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compile('org.springframework.boot:spring-boot-starter-web-services')
 	runtime('mysql:mysql-connector-java')
 	providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
-	//testCompile('org.springframework.security:spring-security-test')
 	testCompile('com.h2database:h2')
-/*
-	testCompile('junit:junit:4.12')
-	testCompile('org.mockito:mockito-core:2.15.0')
-	testCompile('log4j:log4j:1.2.17')
-*/
-}
-
-def webappDir = "$projectDir/src/main/webapp"
-sourceSets {
-	main {
-		resources {
-			srcDirs = ["$webappDir/dist", "$projectDir/src/main/resources"]
-		}
-	}
 }
 
 test {

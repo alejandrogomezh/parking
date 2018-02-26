@@ -1,7 +1,6 @@
 package co.ceiba.parking.controller;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -9,7 +8,6 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestBody;
-//import java.util.concurrent.atomic.AtomicLong;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,19 +22,21 @@ import co.ceiba.parking.messages.Messages;
 import co.ceiba.parking.persistent.repositories.InvoiceRepository;
 import co.ceiba.parking.persistent.repositories.RegisterRepository;
 import co.ceiba.parking.persistent.repositories.VehicleRepository;
-import co.ceiba.parking.persistent.service.InvoiceServiceImpl;
-import co.ceiba.parking.persistent.service.RegisterService;
-import co.ceiba.parking.persistent.service.RegisterServiceImpl;
-import co.ceiba.parking.persistent.service.ServicesPersistent;
-import co.ceiba.parking.persistent.service.ServicesPersistentImpl;
-import co.ceiba.parking.persistent.service.VehicleServiceImpl;
+import co.ceiba.parking.persistent.services.InvoiceServiceImpl;
+import co.ceiba.parking.persistent.services.RegisterService;
+import co.ceiba.parking.persistent.services.RegisterServiceImpl;
+import co.ceiba.parking.persistent.services.ServicesPersistent;
+import co.ceiba.parking.persistent.services.ServicesPersistentImpl;
+import co.ceiba.parking.persistent.services.VehicleServiceImpl;
+import co.ceiba.parking.service.impl.ParkingServicesInjection;
 
 @RestController
 public class ParkingController {
-  //private final AtomicLong counter = new AtomicLong();
 	
 	private ServicesPersistent servicesPersistent;
   
+	@Autowired
+	private ParkingServicesInjection parkingServicesInjection;
   @Autowired
   private  InvoiceRepository invoiceRepository;
   @Autowired
@@ -52,21 +52,14 @@ public class ParkingController {
 			new VehicleServiceImpl(vehicleRepository)
 			);
   }
-  
-  @RequestMapping(value = "/login", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
-  @ResponseBody
-  public Messages login(@RequestBody Vehicle vehicle) {
-  	String msg = "";
-  	return new Messages(msg);
-  }
 
   @RequestMapping(value = "/input", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
   @ResponseBody
   public Messages input(@RequestBody Vehicle vehicle) {
-  	Vigilant vigilant = new Vigilant(servicesPersistent);
+  	Vigilant vigilant = getVigilant();
   	String msg;
   	try {
-  		msg = vigilant.ingreso(vehicle);
+  		msg = vigilant.input(vehicle);
 		} catch (ParkingException e) {
 			msg = e.getMessage();
 		}
@@ -76,10 +69,10 @@ public class ParkingController {
   @RequestMapping(value = "/output", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
   @ResponseBody
   public Object output(@RequestBody Vehicle vehicle) {
-  	Vigilant vigilant = new Vigilant(servicesPersistent);
+  	Vigilant vigilant = getVigilant();
   	String msg;
   	try {
-  		return vigilant.salida(vehicle);
+  		return vigilant.output(vehicle);
 		} catch (ParkingException e) {
 			msg = e.getMessage();
 		}
@@ -97,32 +90,13 @@ public class ParkingController {
 			return registerService.vehiclesInParking();
 		case "Out":
 			return registerService.vehiclesOutParking();
+		default:
+			return new ArrayList<>();
 		}
-  	return new ArrayList<Register>();
+  }
+
+  protected Vigilant getVigilant() {
+  	return new Vigilant(parkingServicesInjection, servicesPersistent);
   }
   
-//  @RequestMapping(value = "/admitted", method = RequestMethod.GET)
-//  @ResponseBody
-//  public List<Vehicle> admitted() {
-//  	List<Vehicle> vehicles = new ArrayList<Vehicle>();
-//  	vehicles.add(new Vehicle("tipo", "placa", 125));
-//  	return vehicles;//("tipo", "placa", 125);
-//  }
-
-//  @RequestMapping(value = "/admitted", method = RequestMethod.GET)
-//  @ResponseBody
-//  public List<RegisterEntity> admitted() {
-//  	MappingJackson2HttpMessageConverter converter= new MappingJackson2HttpMessageConverter();
-//  	Vigilant vigilant = new Vigilant(servicesPersistent);
-//  	return RegisterBuilder.toEntity(vigilant.getAdmittedList());
-//  }
-//  
-//  @RequestMapping(value = "/admitted", method = RequestMethod.GET)
-//  @ResponseBody
-//  public List<RegisterEntity> admitted() {
-//  	Vigilant vigilant = new Vigilant(servicesPersistent);
-//  	return RegisterBuilder.toEntity(vigilant.getAdmittedList());
-//  }
-
-
 }

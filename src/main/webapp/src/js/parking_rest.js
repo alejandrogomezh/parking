@@ -76,12 +76,30 @@ parkingApp.factory('registerFilter', function($resource,$timeout) {
 });
 parkingApp.controller("registerFilterCtrl", function($scope, registerFilter, $interval) {
 	global.filter = $scope;
-	$scope.filterType = "All";
+	$scope.filterType = "In";
 		 
 	$scope.load = 	function(){
 		registerFilter.query({filter:$scope.filterType}, function(data) {
 		    $scope.$admittes = data;
 		}, function(err) {
+			$scope.$admittes = [
+				{vehicle: {tipo:"",placa:""},ingreso: null,salida: null},
+				{vehicle: {tipo:"",placa:""},ingreso: null,salida: null},
+				{vehicle: {tipo:"",placa:""},ingreso: null,salida: null},
+				{vehicle: {tipo:"",placa:""},ingreso: null,salida: null},
+				{vehicle: {tipo:"",placa:""},ingreso: null,salida: null},
+				{vehicle: {tipo:"",placa:""},ingreso: null,salida: null},
+				{vehicle: {tipo:"",placa:""},ingreso: null,salida: null},
+				{vehicle: {tipo:"",placa:""},ingreso: null,salida: null},
+				{vehicle: {tipo:"",placa:""},ingreso: null,salida: null},
+				{vehicle: {tipo:"",placa:""},ingreso: null,salida: null},
+				{vehicle: {tipo:"",placa:""},ingreso: null,salida: null},
+				{vehicle: {tipo:"",placa:""},ingreso: null,salida: null},
+				{vehicle: {tipo:"",placa:""},ingreso: null,salida: null},
+				{vehicle: {tipo:"",placa:""},ingreso: null,salida: null},
+				{vehicle: {tipo:"",placa:""},ingreso: null,salida: null},
+				{vehicle: {tipo:"",placa:""},ingreso: null,salida: null},
+				];
 			console.log("Error occured: ", err);
 		});
 	};

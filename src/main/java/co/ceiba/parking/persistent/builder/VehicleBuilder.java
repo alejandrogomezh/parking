@@ -23,7 +23,7 @@ public class VehicleBuilder {
 	}
 	
 	public static VehicleEntity toEntity(Vehicle vehicle) {
-		VehicleEntity vehicleEntity = vehicle.getSelfEntity();
+		VehicleEntity vehicleEntity = (VehicleEntity)vehicle.getSelfEntity();
 		if(vehicle.getSelfEntity() == null) {
 			vehicleEntity = new VehicleEntity();
 		}

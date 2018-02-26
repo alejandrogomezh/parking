@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 
 @Entity(name="vehicle")
 public class VehicleEntity implements Serializable {
@@ -14,9 +15,11 @@ public class VehicleEntity implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+	@NotNull
 	private String tipo;
+	@NotNull
 	private String placa;
-	private int cilindraje;
+	private Integer cilindraje;
 	
 	public Long getId() {
 		return id;
@@ -36,15 +39,10 @@ public class VehicleEntity implements Serializable {
 	public void setPlaca(String placa) {
 		this.placa = placa;
 	}
-	public int getCilindraje() {
+	public Integer getCilindraje() {
 		return cilindraje;
 	}
-	public void setCilindraje(int cilindraje) {
+	public void setCilindraje(Integer cilindraje) {
 		this.cilindraje = cilindraje;
 	}
-	@Override
-	public String toString() {
-		return "VehicleEntity [id=" + id + ", tipo=" + tipo + ", placa=" + placa + ", cilindraje=" + cilindraje + "]";
-	}
-	
 }

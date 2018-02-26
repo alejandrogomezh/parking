@@ -1,20 +1,23 @@
 package co.ceiba.parking.domain.objects;
 
-import co.ceiba.parking.persistent.entities.VehicleEntity;
-import co.ceiba.parking.persistent.service.VehicleService;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
-public class Vehicle implements java.io.Serializable{
-	private static final long serialVersionUID = -7644302969449909424L;
+import co.ceiba.parking.persistent.services.VehicleService;
+
+@JsonInclude(Include.NON_NULL)
+public class Vehicle{
 	
 	private String tipo;
 	private String placa;
-	private int cilindraje;
+	private Integer cilindraje;
 	
 	public Vehicle() {
 		
 	}
 	
-	public Vehicle(String tipo, String placa, int cilindraje) {
+	public Vehicle(String tipo, String placa, Integer cilindraje) {
 		this.tipo = tipo;
 		this.placa = placa.toUpperCase();
 		this.cilindraje = cilindraje;
@@ -24,7 +27,7 @@ public class Vehicle implements java.io.Serializable{
 		return placa.toUpperCase();
 	}
 	
-	public int getCilindraje() {
+	public Integer getCilindraje() {
 		return cilindraje;
 	}
 
@@ -32,11 +35,12 @@ public class Vehicle implements java.io.Serializable{
 		return tipo;
 	}
 	
-	private VehicleEntity selfEntity;
-	public VehicleEntity getSelfEntity() {
+	@JsonIgnore
+	private Object selfEntity;
+	public Object getSelfEntity() {
 		return selfEntity;
 	}
-	public Vehicle setSelfEntity(VehicleEntity entity) {
+	public Vehicle setSelfEntity(Object entity) {
 		this.selfEntity = entity;
 		return this;
 	}
@@ -48,11 +52,6 @@ public class Vehicle implements java.io.Serializable{
 		}
 		if(self != null) this.selfEntity = self.selfEntity;
 		return this;
-	}
-
-	@Override
-	public String toString() {
-		return "Vehicle [tipo=" + tipo + ", placa=" + placa + ", cilindraje=" + cilindraje + "]";
 	}
 	
 }

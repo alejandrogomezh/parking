@@ -1,0 +1,3 @@
+DROP TABLE IF EXISTS invoice;
+DROP TABLE IF EXISTS register;
+DROP TABLE IF EXISTS vehicle;

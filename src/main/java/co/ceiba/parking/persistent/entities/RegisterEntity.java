@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -17,7 +16,7 @@ public class RegisterEntity implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	@ManyToOne//(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name="vehicle")
 	private VehicleEntity vehicle;
 	private Date ingreso;
@@ -46,10 +45,6 @@ public class RegisterEntity implements Serializable {
 	}
 	public void setSalida(Date salida) {
 		this.salida = salida;
-	}
-	@Override
-	public String toString() {
-		return "RegisterEntity [id=" + id + ", vehicle=" + vehicle + ", ingreso=" + ingreso + ", salida=" + salida + "]";
 	}
 	
 }

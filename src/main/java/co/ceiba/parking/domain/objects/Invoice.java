@@ -1,10 +1,13 @@
 package co.ceiba.parking.domain.objects;
 
-import co.ceiba.parking.persistent.entities.InvoiceEntity;
-import co.ceiba.parking.persistent.service.InvoiceService;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
-public class Invoice implements java.io.Serializable{
-	private static final long serialVersionUID = 3419707526275881224L;
+import co.ceiba.parking.persistent.services.InvoiceService;
+
+@JsonInclude(Include.NON_NULL)
+public class Invoice{
 	
 	private Register register;
 	private int dias;
@@ -13,6 +16,10 @@ public class Invoice implements java.io.Serializable{
 	private double valorHoras;
 	private double valorRecargo;
 	private double valorTotal;
+	
+	public Invoice() {
+		
+	}
 	
 	public Invoice(Register register, int dias, int horas, double valorDias,
 			double valorHoras, double valorRecargo, double valorTotal) {
@@ -46,12 +53,12 @@ public class Invoice implements java.io.Serializable{
 		return valorTotal;
 	}
 	
-	
-	private InvoiceEntity selfEntity;
-	public InvoiceEntity getSelfEntity() {
+	@JsonIgnore
+	private Object selfEntity;
+	public Object getSelfEntity() {
 		return selfEntity;
 	}
-	public Invoice setSelfEntity(InvoiceEntity selfEntity) {
+	public Invoice setSelfEntity(Object selfEntity) {
 		this.selfEntity = selfEntity;
 		return this;
 	}
@@ -61,11 +68,5 @@ public class Invoice implements java.io.Serializable{
 		if(self != null) this.selfEntity = self.selfEntity;
 		return this;
 	}
-	@Override
-	public String toString() {
-		return "Invoice [register=" + register + ", dias=" + dias + ", horas=" + horas + ", valorDias=" + valorDias
-				+ ", valorHoras=" + valorHoras + ", valorRecargo=" + valorRecargo + ", valorTotal=" + valorTotal + "]";
-	}
-	
 	
 }

@@ -2,21 +2,30 @@ package co.ceiba.parking.domain.objects;
 
 import java.util.Date;
 
-import co.ceiba.parking.persistent.entities.RegisterEntity;
-import co.ceiba.parking.persistent.service.RegisterService;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
-public class Register implements java.io.Serializable{
-	private static final long serialVersionUID = 3624261432628024680L;
+import co.ceiba.parking.persistent.services.RegisterService;
+
+import static com.fasterxml.jackson.annotation.JsonInclude.Include;
+
+@JsonInclude(Include.NON_NULL)
+public class Register{
 	
 	private Vehicle vehicle;
 	private Date ingreso;
 	private Date salida;
+	
+	public Register() {
+		
+	}
 	
 	public Register(Vehicle vehicle, Date ingreso) {
 		this.vehicle = vehicle;
 		this.ingreso = ingreso;
 		this.salida = null;
 	}
+	
 	public Register(Vehicle vehicle, Date ingreso, Date salida) {
 		this.vehicle = vehicle;
 		this.ingreso = ingreso;
@@ -39,11 +48,12 @@ public class Register implements java.io.Serializable{
 		this.salida = salida;
 	}
 
-	private RegisterEntity selfEntity;
-	public RegisterEntity getSelfEntity() {
+	@JsonIgnore
+	private Object selfEntity;
+	public Object getSelfEntity() {
 		return selfEntity;
 	}
-	public Register setSelfEntity(RegisterEntity selfEntity) {
+	public Register setSelfEntity(Object selfEntity) {
 		this.selfEntity = selfEntity;
 		return this;
 	}
@@ -53,8 +63,5 @@ public class Register implements java.io.Serializable{
 		if(self != null) this.selfEntity = self.selfEntity;
 		return this;
 	}
-	@Override
-	public String toString() {
-		return "Register [vehicle=" + vehicle + ", ingreso=" + ingreso + ", salida=" + salida + "]";
-	}
+
 }

@@ -9,6 +9,7 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
+import co.ceiba.parking.domain.Calculator;
 import co.ceiba.parking.domain.Conditions;
 import co.ceiba.parking.domain.Time;
 import co.ceiba.parking.domain.objects.Carro;
@@ -25,14 +26,14 @@ public class TiemposTest {
 		Date ingreso = FechaTest.crearFechaConHora(24, Calendar.MAY, 2018, 12, 0);
 		Date salida = FechaTest.crearFechaConHora(25, Calendar.MAY, 2018, 15, 0);
 		Carro carro = new CarroTestDataBuilder().build();
-		Conditions condicion = Conditions.get(carro);
+		Conditions conditions = Conditions.get(carro);
 		Register register = new RegisterTestDataBuilder()
 				.conIngreso(ingreso)
 				.conSalida(salida)
 				.build();
-		Time time = new Time(condicion, register);
+		Calculator calculator = new Calculator(conditions, register);
 		// act
-		time.calculate();
+		Time time = calculator.time();
 		// assert
 		assertEquals(1, time.getDias());
 		assertEquals(3, time.getHoras());
@@ -43,14 +44,14 @@ public class TiemposTest {
 		Date ingreso = FechaTest.crearFechaConHora(24, Calendar.MAY, 2018, 7, 0);
 		Date salida = FechaTest.crearFechaConHora(24, Calendar.MAY, 2018, 17, 0);
 		Carro carro = new CarroTestDataBuilder().build();
-		Conditions condicion = Conditions.get(carro);
+		Conditions conditions = Conditions.get(carro);
 		Register register = new RegisterTestDataBuilder()
 				.conIngreso(ingreso)
 				.conSalida(salida)
 				.build();
-		Time time = new Time(condicion, register);
+		Calculator calculator = new Calculator(conditions, register);
 		// act
-		time.calculate();
+		Time time = calculator.time();
 		// assert
 		assertEquals(1, time.getDias());
 		assertEquals(0, time.getHoras());
@@ -61,14 +62,14 @@ public class TiemposTest {
 		Date ingreso = FechaTest.crearFechaConHora(24, Calendar.MAY, 2018, 7, 0);
 		Date salida = FechaTest.crearFechaConHora(24, Calendar.MAY, 2018, 16, 0);
 		Carro carro = new CarroTestDataBuilder().build();
-		Conditions condicion = Conditions.get(carro);
+		Conditions conditions = Conditions.get(carro);
 		Register register = new RegisterTestDataBuilder()
 				.conIngreso(ingreso)
 				.conSalida(salida)
 				.build();
-		Time time = new Time(condicion, register);
+		Calculator calculator = new Calculator(conditions, register);
 		// act
-		time.calculate();
+		Time time = calculator.time();
 		// assert
 		assertEquals(1, time.getDias());
 		assertEquals(0, time.getHoras());
@@ -79,14 +80,14 @@ public class TiemposTest {
 		Date ingreso = FechaTest.crearFechaConHora(24, Calendar.MAY, 2018, 7, 0);
 		Date salida = FechaTest.crearFechaConHora(24, Calendar.MAY, 2018, 15, 0);
 		Carro carro = new CarroTestDataBuilder().build();
-		Conditions condicion = Conditions.get(carro);
+		Conditions conditions = Conditions.get(carro);
 		Register register = new RegisterTestDataBuilder()
 				.conIngreso(ingreso)
 				.conSalida(salida)
 				.build();
-		Time time = new Time(condicion, register);
+		Calculator calculator = new Calculator(conditions, register);
 		// act
-		time.calculate();
+		Time time = calculator.time();
 		// assert
 		assertEquals(0, time.getDias());
 		assertEquals(8, time.getHoras());

@@ -8,6 +8,7 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
+import co.ceiba.parking.domain.Calculator;
 import co.ceiba.parking.domain.Conditions;
 import co.ceiba.parking.domain.Cost;
 import co.ceiba.parking.domain.interfaces.TimeInterface;
@@ -27,20 +28,20 @@ public class CostosTest {
 		Moto moto = new MotoTestDataBuilder().conCilindraje(cilindraje).build();
 		Conditions conditions = Conditions.get(moto);
 		Register register = new RegisterTestDataBuilder().conVehiculo(moto).build();
-		TimeInterface tiempos = mock(TimeInterface.class);
+		TimeInterface time = mock(TimeInterface.class);
+		Calculator calculator = new Calculator(conditions, register);
 		
-		when(tiempos.getCondicion()).thenReturn(conditions);	
-		when(tiempos.getRegister()).thenReturn(register);
-		when(tiempos.getHoras()).thenReturn(3);
-		when(tiempos.getDias()).thenReturn(1);
+		when(time.getHoras()).thenReturn(3);
+		when(time.getDias()).thenReturn(1);
 		
-		Cost cost = new Cost(tiempos);
+		
 		double valorDia = conditions.getValorDia()*1;
 		double valorHora = conditions.getValorHora()*3;
 		double valorRecargo = conditions.getValorRecargo();
 		double valorTotal = valorDia + valorHora + valorRecargo;
+		
 		// act
-		cost.calculate();
+		Cost cost = calculator.cost(time);
 		// assert
 		assertEquals(valorDia, cost.getValorDias(), 0);
 		assertEquals(valorHora, cost.getValorHoras(), 0);
@@ -54,20 +55,19 @@ public class CostosTest {
 		Moto moto = new MotoTestDataBuilder().conCilindraje(cilindraje).build();
 		Conditions conditions = Conditions.get(moto);
 		Register register = new RegisterTestDataBuilder().conVehiculo(moto).build();
-		TimeInterface tiempos = mock(TimeInterface.class);
+		TimeInterface time = mock(TimeInterface.class);
+		Calculator calculator = new Calculator(conditions, register);
 		
-		when(tiempos.getCondicion()).thenReturn(conditions);	
-		when(tiempos.getRegister()).thenReturn(register);
-		when(tiempos.getHoras()).thenReturn(3);
-		when(tiempos.getDias()).thenReturn(1);
-		
-		Cost cost = new Cost(tiempos);
+		when(time.getHoras()).thenReturn(3);
+		when(time.getDias()).thenReturn(1);
+
 		double valorDia = conditions.getValorDia()*1;
 		double valorHora = conditions.getValorHora()*3;
 		double valorRecargo = 0;
 		double valorTotal = valorDia + valorHora + valorRecargo;
+		
 		// act
-		cost.calculate();
+		Cost cost = calculator.cost(time);
 		// assert
 		assertEquals(valorDia, cost.getValorDias(), 0);
 		assertEquals(valorHora, cost.getValorHoras(), 0);
@@ -81,20 +81,18 @@ public class CostosTest {
 		Carro carro = new CarroTestDataBuilder().conCilindraje(cilindraje).build();
 		Conditions conditions = Conditions.get(carro);
 		Register register = new RegisterTestDataBuilder().conVehiculo(carro).build();
-		TimeInterface tiempos = mock(TimeInterface.class);
+		TimeInterface time = mock(TimeInterface.class);
+		Calculator calculator = new Calculator(conditions, register);
 		
-		when(tiempos.getCondicion()).thenReturn(conditions);	
-		when(tiempos.getRegister()).thenReturn(register);
-		when(tiempos.getHoras()).thenReturn(3);
-		when(tiempos.getDias()).thenReturn(1);
+		when(time.getHoras()).thenReturn(3);
+		when(time.getDias()).thenReturn(1);
 		
-		Cost cost = new Cost(tiempos);
 		double valorDia = conditions.getValorDia()*1;
 		double valorHora = conditions.getValorHora()*3;
 		double valorRecargo = 0;
 		double valorTotal = valorDia + valorHora;
 		// act
-		cost.calculate();
+		Cost cost = calculator.cost(time);
 		// assert
 		assertEquals(valorDia, cost.getValorDias(), 0);
 		assertEquals(valorHora, cost.getValorHoras(), 0);
