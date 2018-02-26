@@ -39,6 +39,24 @@ public class TiemposTest {
 		assertEquals(3, time.getHoras());
 	}
 	
+	@Test public void unDiaMasCuatroHorasPor1Minuto() {
+		// arrange
+		Date ingreso = FechaTest.crearFechaConHora(24, Calendar.MAY, 2018, 12, 0);
+		Date salida = FechaTest.crearFechaConHora(25, Calendar.MAY, 2018, 15, 1);
+		Carro carro = new CarroTestDataBuilder().build();
+		Conditions conditions = Conditions.get(carro);
+		Register register = new RegisterTestDataBuilder()
+				.conIngreso(ingreso)
+				.conSalida(salida)
+				.build();
+		Calculator calculator = new Calculator(conditions, register);
+		// act
+		Time time = calculator.time();
+		// assert
+		assertEquals(1, time.getDias());
+		assertEquals(4, time.getHoras());
+	}
+	
 	@Test public void unDiaDesde10Horas() {
 		// arrange
 		Date ingreso = FechaTest.crearFechaConHora(24, Calendar.MAY, 2018, 7, 0);

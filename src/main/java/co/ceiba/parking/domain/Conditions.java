@@ -62,11 +62,7 @@ public class Conditions {
 		this.valorDia = valorDia;
 		this.valorRecargo = valorRecargo;
 	}
-
-	public String getTipo() {
-		return tipo;
-	}
-
+	
 	public int getHorasDiaMinimo() {
 		return horasDiaMinimo;
 	}
