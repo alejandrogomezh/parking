@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="co.ceiba.parking.dominio.unitaria.CostosTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2018-02-22T21:12:19" hostname="ALEJANDRO-GOMEZ" time="0.219">
-  <properties/>
-  <testcase name="carroSinRecargoUnDiaMasTresHoras" classname="co.ceiba.parking.dominio.unitaria.CostosTest" time="0.219"/>
-  <testcase name="motoConRecargoUnDiaMasTresHoras" classname="co.ceiba.parking.dominio.unitaria.CostosTest" time="0.0"/>
-  <testcase name="motoSinRecargoUnDiaMasTresHoras" classname="co.ceiba.parking.dominio.unitaria.CostosTest" time="0.0"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>
