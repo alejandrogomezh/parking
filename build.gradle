@@ -42,11 +42,19 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-jdbc')
 	runtime('mysql:mysql-connector-java')
 	providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
+	
+	
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	testCompile('com.h2database:h2')
-	
+
 	testCompile('org.seleniumhq.selenium:selenium-java:3.9.1')
+	/*
 	testCompile('org.seleniumhq.selenium:selenium-leg-rc:3.9.1')
+	testCompile('org.seleniumhq.selenium:selenium-support:3.9.1')
+	testCompile('org.seleniumhq.selenium:selenium-api:3.9.1')
+	testCompile('org.seleniumhq.selenium:selenium-server:3.9.1')
+
+	// Drivers
 	testCompile('org.seleniumhq.selenium:selenium-safari-driver:3.9.1')
 	testCompile('org.seleniumhq.selenium:selenium-remote-driver:3.9.1')
 	testCompile('org.seleniumhq.selenium:selenium-opera-driver:3.9.1')
@@ -54,9 +62,7 @@ dependencies {
 	testCompile('org.seleniumhq.selenium:selenium-firefox-driver:3.9.1')
 	testCompile('org.seleniumhq.selenium:selenium-edge-driver:3.9.1')
 	testCompile('org.seleniumhq.selenium:selenium-chrome-driver:3.9.1')
-	testCompile('org.seleniumhq.selenium:selenium-support:3.9.1')
-	testCompile('org.seleniumhq.selenium:selenium-api:3.9.1')
-
+	*/
 }
 
 test {
