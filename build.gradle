@@ -1,18 +1,23 @@
 buildscript {
 	ext {
 		springBootVersion = '1.5.10.RELEASE'
+		scalaVersion = '2.13.0-M3'
 	}
 	repositories {
 		mavenCentral()
+	    //maven {url "https://plugins.gradle.org/m2/"}
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+		//classpath "gradle.plugin.org.gosu-lang.gosu:gradle-gosu-plugin:0.3.6"
 	}
 }
 
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
+//apply plugin: "org.gosu-lang.gosu"
+apply plugin: 'scala'
 apply plugin: 'war'
 apply plugin: 'jacoco'
 
@@ -46,23 +51,31 @@ dependencies {
 	
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	testCompile('com.h2database:h2')
+	
+	
+    //compile('org.scala-lang:scala-compiler:${scalaVersion}')
+    //compile('org.scala-lang:scala-dist:${scalaVersion}')
+    //compile('org.scala-lang:scalap:${scalaVersion}')
+    compile('org.scala-lang:scala-library:${scalaVersion}')
+    //compile('org.scala-lang:scala-reflect:${scalaVersion}')
+    //testCompile('org.scalatest:scalatest_sjs0.6_2.13.0-M3:${scalaVersion}')
+    //testCompile('org.scalatest:scalatest-app_sjs0.6_2.13.0-M3:${scalaVersion}')
+    //testCompile('org.scalatest:scalatest_2.13.0-M3:${scalaVersion}')
+    //testCompile('org.scalatest:scalatest-app_2.13.0-M3:${scalaVersion}')
 
-	testCompile('org.seleniumhq.selenium:selenium-java:3.9.1')
-	/*
-	testCompile('org.seleniumhq.selenium:selenium-leg-rc:3.9.1')
-	testCompile('org.seleniumhq.selenium:selenium-support:3.9.1')
-	testCompile('org.seleniumhq.selenium:selenium-api:3.9.1')
-	testCompile('org.seleniumhq.selenium:selenium-server:3.9.1')
+}
 
-	// Drivers
-	testCompile('org.seleniumhq.selenium:selenium-safari-driver:3.9.1')
-	testCompile('org.seleniumhq.selenium:selenium-remote-driver:3.9.1')
-	testCompile('org.seleniumhq.selenium:selenium-opera-driver:3.9.1')
-	testCompile('org.seleniumhq.selenium:selenium-ie-driver:3.9.1')
-	testCompile('org.seleniumhq.selenium:selenium-firefox-driver:3.9.1')
-	testCompile('org.seleniumhq.selenium:selenium-edge-driver:3.9.1')
-	testCompile('org.seleniumhq.selenium:selenium-chrome-driver:3.9.1')
-	*/
+sourceSets {
+    main {
+        scala {
+            srcDirs = ['src/main/scala']
+        }
+    }
+    test {
+        scala {
+            srcDirs = ['src/test/scala']
+        }
+    }
 }
 
 test {
